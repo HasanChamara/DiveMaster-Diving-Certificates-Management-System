@@ -11,10 +11,13 @@
 </head>
 <body>
 <nav class="bg-gray-800 p-4">
-    <div class="container mx-auto">
-        <a href="{{ route('assessments.index') }}" class="text-white">Assessments</a>
+    <div class="container mx-auto flex items-center space-x-6">
+        <a href="{{ url('/') }}" class="text-white hover:text-gray-300">Home</a>
+        <a href="{{ route('assessments.index') }}" class="text-white hover:text-gray-300">Assessments</a>
+        <a href="{{ route('inventories.index') }}" class="text-white hover:text-gray-300">Inventories</a>
     </div>
 </nav>
+
 
     <div class="container">
         @yield('content')
