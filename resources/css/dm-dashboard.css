@@ -1,0 +1,246 @@
+
+:root {
+    --black-text-color: #101828;
+    --grey-text-color: #475467;
+    --white-color: #ffffff;
+ }
+ 
+ .trp-sidebar {
+    background-color: var(--black-text-color);
+ }
+ 
+ .trp-main-wrapper {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+ }
+ 
+ .trp-main-wrapper .trp-sidebar {
+    padding: 32px 24px;
+    display: grid;
+    grid-template-rows: 40px 458px auto;
+    gap: 28px;
+ }
+ 
+ .trp-main-wrapper .trp-right-col {
+    background-color: #f9fafb;
+    padding: 40px 40px 12px 40px;
+ }
+ 
+ .trp-main-wrapper .trp-sidebar ul {
+    list-style: none;
+    font-family: inherit;
+    color: var(--white-color);
+    padding: 0;
+ }
+ 
+ .trp-main-wrapper .trp-sidebar ul li {
+    padding: 12px 12.5px;
+    border-radius: 6px;
+ }
+ 
+ .trp-main-wrapper .trp-sidebar ul li:hover {
+    background-color: var(--grey-text-color);
+ }
+ 
+ .trp-main-wrapper .trp-sidebar ul li a {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0px;
+    color: var(--white-color);
+ }
+ 
+ .trp-main-wrapper .trp-sidebar-bottom {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-end;
+ }
+ 
+ .trp-main-wrapper .trp-sidebar-bottom__info {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #475467;
+ }
+ 
+ .trp-main-wrapper .trp-sidebar-bottom__info h5 {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0px;
+    color: #f9fafb;
+    margin-bottom: 2px;
+ }
+ 
+ .trp-main-wrapper .trp-sidebar-bottom__info h6 {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: 0px;
+    color: #98a2b3;
+    margin: 0;
+ }
+ 
+ .trp-main-wrapper .trp-sidebar-bottom__triloo {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-top: 24px;
+ }
+ 
+ .trp-main-wrapper .trp-sidebar-bottom__triloo img {
+    width: 30px;
+    height: 30px;
+ }
+ 
+ .trp-main-wrapper .trp-sidebar-bottom__triloo h6 {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0px;
+    color: var(--white-color);
+ }
+ 
+ .trp-main-wrapper .trp-sidebar ul li.active {
+    box-shadow: 0px 1px 2px 0px #1018280D;
+    background: #344054;
+    color: var(--white-color);
+ }
+ 
+ /* right col */
+ .trp-right-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+ }
+ 
+ .trp-right-col-bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+ }
+ 
+ .trp-right-col-bottom p {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 24px;
+    letter-spacing: 0px;
+ }
+ 
+ 
+
+.trp-section.trp-chart-container {
+    gap: 24px;
+}
+
+.trp-section.trp-chart-container .chart-wrapper {
+    border: 1px solid #E4E7EC;
+    box-shadow: 0px 1px 2px 0px #1018280D;
+    background: #FFFFFF;
+    padding: 24px;
+    border-radius: 8px;
+
+}
+
+.trp-section.trp-chart-container .chart-wrapper .trp-chart-inner .trp-chart-header {
+    padding-bottom: 16px;
+    border-bottom: 1px solid #E4E7EC;
+}
+
+.trp-section.trp-chart-container .chart-wrapper .trp-chart-inner .trp-chart-header h3{
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: 0%;
+    color: #292D35;
+}
+
+.trp-section.trp-chart-container .chart-wrapper .trp-chart-inner .trp-chart-header p {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    color: #475467;
+    
+}
+.trp-section.trp-chart-container .chart-wrapper .trp-chart-inner .trp-total-sales p {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    color: #475467;
+    
+}
+.trp-section.trp-chart-container .chart-wrapper .trp-chart-inner .trp-total-sales h3 {
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 44px;
+    letter-spacing: -2%;
+    color: #101828;
+}
+
+.trp-section.trp-chart-container .chart-wrapper .trp-chart-inner  .trp-total-sales {
+    padding-top: 16px;
+    padding-bottom: 24px;
+}
+
+.trp-section.trp-chart-container .trp-monthly-sales-info-grid {
+    display: grid;
+    gap: 6px;
+}
+
+.trp-section.trp-chart-container .trp-monthly-sales-info-grid .row .trp-cell h5 {
+font-weight: 700;
+font-size: 14px;
+line-height: 18px;
+color: #292D35;
+
+}
+
+.trp-section.trp-chart-container .trp-monthly-sales-info-grid .row .trp-cell p {
+font-weight: 400;
+font-size: 14px;
+line-height: 20px;
+color: #101828;
+ }
+
+ .trp-weekly-same-floating-card {
+    max-width: 250px;
+    width: 100%;
+    position: absolute;
+    left: 55%;
+    top: 20%;
+    background: white;
+    border: 1px solid #E4E7EC;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 1px 1px 4px 0px #00000008;
+    box-shadow: 4px 6px 7px 0px #00000008;
+    box-shadow: 9px 13px 9px 0px #00000005;
+    box-shadow: 17px 22px 11px 0px #00000000;
+    box-shadow: 26px 35px 12px 0px #00000000;
+ }
+
+
+ .trp-weekly-same-floating-card  .trp-total-sales {
+    padding: 0px 0px 16px !important;
+ }
+ .trp-weekly-same-floating-card  .trp-total-sales h3 {
+    font-weight: 700;
+    font-size: 18px!important;
+    line-height: 22px!important;
+    letter-spacing: 0%;
+    color: #101828;
+}
+
+ h4.dashboard-table-heading {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: 0%;
+    color: #292D35; 
+}
