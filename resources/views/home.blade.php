@@ -378,6 +378,9 @@
             <label for="number">Contact Number:</label>
             <input type="tel" id="number" name="number" required>
 
+            <label for="number">NIC/Passport Number:</label>
+            <input type="text" id="nic" name="nic" required>
+
             <div class="form-row">
                 <div class="form-group">
                     <label for="activity">Activity:</label>
@@ -407,8 +410,8 @@
                 </div>
             </div>
 
-            <label for="headCount">Number of Divers (Including you):</label>
-            <input type="number" id="headCount" name="headCount" min="1" required>
+            <label for="number_of_divers">Number of Divers (Including you):</label>
+            <input type="number" id="headCount" name="number_of_divers" min="1" required>
 
             <!-- Dynamic section for divers' information in table format -->
             <table id="diversTable" style="display: none;">

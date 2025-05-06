@@ -28,56 +28,33 @@
          <img class="mb-4" src="{{ asset('imgs/dive-master-logo-white.png') }}" width="120" alt="" />
          <ul class="trp-sidebar-links">
             <li class="active">
-               <a href="#">
-                  <span><img src="{{ asset('imgs/dashboard-icon.svg') }}" alt="" /></span>
+               <a href="/dashboard">
+                  <span><img src="{{ asset('imgs/dm-dashboard.png') }}"  width="24" height="24" alt="" /></span>
                   Dashboard
                </a>
             </li>
             <li>
-               <a href="#">
-                  <span><img src="{{ asset('imgs/customer-mang.svg') }}" alt="" /></span>
-                  Customer management
+               <a href="/bookings">
+                  <span><img src="{{ asset('imgs/dm-bookings.png') }}" width="24" height="24" alt="" /></span>
+                  Booking Requests
                </a>
             </li>
             <li>
                <a href="#">
-                  <span><img src="{{ asset('imgs/sales.svg') }}" alt="" /></span>
-                  Sales
+                  <span><img src="{{ asset('imgs/dm-office.png') }}"  width="24" height="24" alt="" /></span>
+                  Certification Authorities
                </a>
             </li>
             <li>
                <a href="#">
-                  <span><img src="{{ asset('imgs/dashboard-icon.svg') }}" alt="" /></span>
-                  Reconcile
+                  <span><img src="{{ asset('imgs/dm-equipments.png') }}" width="24" height="24" alt="" /></span>
+                  Equipments Management
                </a>
             </li>
+      
             <li>
                <a href="#">
-                  <span><img src="{{ asset('imgs/expense.svg') }}" alt="" /></span>
-                  Expense
-               </a>
-            </li>
-            <li>
-               <a href="#">
-                  <span><img src="{{ asset('imgs/pands.svg') }}" alt="" /></span>
-                  Products & Services
-               </a>
-            </li>
-            <li>
-               <a href="#">
-                  <span><img src="{{ asset('imgs/inventory.svg') }}" alt="" /></span>
-                  Inventory
-               </a>
-            </li>
-            <li>
-               <a href="#">
-                  <span><img src="{{ asset('imgs/reports.svg') }}" alt="" /></span>
-                  Reports
-               </a>
-            </li>
-            <li>
-               <a href="#">
-                  <span><img src="{{ asset('imgs/settings.svg') }}" alt="" /></span>
+                  <span><img src="{{ asset('imgs/dm-cogwheel.png') }}" width="24" height="24" alt="" /></span>
                   Settings
                </a>
             </li>

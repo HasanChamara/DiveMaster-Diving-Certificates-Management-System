@@ -11,7 +11,7 @@
  
  .trp-main-wrapper {
     display: grid;
-    grid-template-columns: 280px 1fr;
+    grid-template-columns: 300px 1fr;
  }
  
  .trp-main-wrapper .trp-sidebar {
