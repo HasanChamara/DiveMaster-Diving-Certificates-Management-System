@@ -571,6 +571,7 @@
                 name: document.getElementById("name").value,
                 email: document.getElementById("email").value,
                 contact_number: document.getElementById("number").value,
+                nic: document.getElementById("nic").value,
                 activity: document.getElementById("activity").value,
                 date: document.getElementById("date").value,
                 location: document.getElementById("location").value,
