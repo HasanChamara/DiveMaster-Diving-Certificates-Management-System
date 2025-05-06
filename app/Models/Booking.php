@@ -1,5 +1,6 @@
 <?php
 
+// app/Models/Booking.php
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,16 +11,12 @@ class Booking extends Model
     use HasFactory;
 
     protected $fillable = [
-        'first_name',
-        'last_name',
-        'email',
-        'contact_number',
-        'preferred_dive_activity',
-        'date',
-        'special_notes',
-        'is_adult',
-        'status',
-        'instructor'
+        'name', 'email', 'contact_number', 'activity', 'date', 'location', 'number_of_divers', 'message', 'age_verification'
     ];
+
+    public function divers()
+    {
+        return $this->hasMany(Diver::class);
+    }
 }
 

@@ -31,7 +31,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 });
 Route::get('/booking', [BookingController::class, 'create'])->name('booking.create');
-Route::post('/booking', [BookingController::class, 'store'])->name('booking.store');
+Route::post('/submit-booking', [BookingController::class, 'store']);
 Route::get('/bookings', [BookingController::class, 'index'])->name('bookings.index');
 Route::post('/bookings/{id}', [BookingController::class, 'update'])->name('bookings.update');
 Route::get('/bookings/{id}/details', [BookingController::class, 'showDetailsForm'])->name('bookings.showDetailsForm');

@@ -11,7 +11,38 @@
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <link rel="icon" type="image/x-icon" href="/imgs/DiveMaster-Fav.png">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <style>
+        .success-message {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none; /* Initially hidden */
+        }
+
+        /* Error message styles */
+        .error-message {
+            background-color: #f44336;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none; /* Initially hidden */
+        }
+
+        .error-list {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        .error-list li {
+            margin-bottom: 5px;
+        }
+    </style>
 </head>
 
 <body>
@@ -322,67 +353,96 @@
             </div>
         </div>
     </section>
-    <div class="booking-popup-overlay" id="BookingPopupOverlay">
-        <div class="popup-content">
-            <span class="close-booking-popup" id="closeBookingPopup">&times;</span>
-            <h2 style="text-align:center;">Book Your Dive Session Now</h2>
-            <form>
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
-
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-
-                <label for="number">Contact Number:</label>
-                <input type="tel" id="number" name="number" required>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="activity">Activity:</label>
-                        <select id="activity" name="activity" required>
-                            <option value="">-- Select Activity --</option>
-                            <option value="Snorkeling">Snorkeling</option>
-                            <option value="Scuba Diving">Scuba Diving</option>
-                            <option value="Free Diving">Free Diving</option>
-                            <option value="Dive Certification">Dive Certification</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="date">Date:</label>
-                        <input type="date" id="date" name="date" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="location">Location:</label>
-                        <select id="location" name="location" required>
-                            <option value="">-- Select Location --</option>
-                            <option value="Hikkaduwa">Hikkaduwa</option>
-                            <option value="Unawatuna">Unawatuna</option>
-                            <option value="Trincomalee">Trincomalee</option>
-                        </select>
-                    </div>
-                </div>
-
-                <label for="headCount">Number of Divers:</label>
-                <input type="number" id="headCount" name="headCount" min="1" required>
-
-                <label for="message">Special Notes:</label>
-                <textarea id="message" name="message" rows="4"></textarea>
-
-                <div class="age-verification">
-                    <label>Are you 18+ years old?</label>
-                    <div style="display: flex; gap: 10px;  align-items: center;"> 
-                        <label style="display: flex; gap: 10px; justify-content: center; align-items: center;"><input type="radio" name="ageVerify" value="yes" required> Yes</label>
-                        <label style="display: flex; gap: 10px; justify-content: center; align-items: center;"><input type="radio" name="ageVerify" value="no"> No</label>
-                    </div>
-                </div>
-
-                <button type="submit">Send Your Request</button>
-            </form>
+<div class="booking-popup-overlay" id="BookingPopupOverlay">
+    <div class="popup-content">
+        <span class="close-booking-popup" id="closeBookingPopup">&times;</span>
+        
+        <!-- Success Message -->
+        <div id="successMessage" class="success-message">
+            Booking submitted successfully!
         </div>
+
+        <!-- Error Message -->
+        <div id="errorMessage" class="error-message">
+            <ul id="errorList" class="error-list"></ul>
+        </div>
+
+        <h2 style="text-align:center;">Book Your Dive Session Now</h2>
+        <form id="bookingForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="number">Contact Number:</label>
+            <input type="tel" id="number" name="number" required>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="activity">Activity:</label>
+                    <select id="activity" name="activity" required>
+                        <option value="">-- Select Activity --</option>
+                        <option value="Snorkeling">Snorkeling</option>
+                        <option value="Scuba Diving">Scuba Diving</option>
+                        <option value="Free Diving">Free Diving</option>
+                        <option value="Dive Certification">Dive Certification</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="location">Location:</label>
+                    <select id="location" name="location" required>
+                        <option value="">-- Select Location --</option>
+                        <option value="Hikkaduwa">Hikkaduwa</option>
+                        <option value="Unawatuna">Unawatuna</option>
+                        <option value="Trincomalee">Trincomalee</option>
+                    </select>
+                </div>
+            </div>
+
+            <label for="headCount">Number of Divers (Including you):</label>
+            <input type="number" id="headCount" name="headCount" min="1" required>
+
+            <!-- Dynamic section for divers' information in table format -->
+            <table id="diversTable" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>Diver #</th>
+                        <th>Name</th>
+                        <th>Birthday</th>
+                        <th>Diving Status</th>
+                    </tr>
+                </thead>
+                <tbody id="diversInfoContainer"></tbody>
+            </table>
+
+            <label for="message">Special Notes:</label>
+            <textarea id="message" name="message" rows="4"></textarea>
+
+            <div class="age-verification">
+                <label>Are you 18+ years old?</label>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <label style="display: flex; gap: 10px; justify-content: center; align-items: center;">
+                        <input type="radio" name="ageVerify" value="yes" required> Yes
+                    </label>
+                    <label style="display: flex; gap: 10px; justify-content: center; align-items: center;">
+                        <input type="radio" name="ageVerify" value="no"> No
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit">Send Your Request</button>
+        </form>
     </div>
+</div>
+
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -425,6 +485,118 @@
 
         document.getElementById('closeBookingPopup').addEventListener('click', () => {
             document.getElementById('BookingPopupOverlay').style.display = 'none';
+        });
+    </script>
+
+    <script>
+        // Function to generate the additional fields in a table format based on the number of divers
+        document.getElementById("headCount").addEventListener("input", function() {
+            const headCount = parseInt(this.value);
+            const table = document.getElementById("diversTable");
+            const container = document.getElementById("diversInfoContainer");
+
+            // Show table when number is entered
+            table.style.display = headCount > 0 ? "table" : "none";
+
+            container.innerHTML = '';  // Clear existing fields
+
+            if (headCount > 0) {
+                for (let i = 1; i <= headCount; i++) {
+                    const row = document.createElement("tr");
+
+                    // Diver number
+                    const diverCell = document.createElement("td");
+                    diverCell.textContent = `Diver ${i}`;
+                    row.appendChild(diverCell);
+
+                    // Name input
+                    const nameCell = document.createElement("td");
+                    const nameInput = document.createElement("input");
+                    nameInput.type = "text";
+                    nameInput.name = `diver${i}_name`;
+                    nameInput.required = true;
+                    nameCell.appendChild(nameInput);
+                    row.appendChild(nameCell);
+
+                    // Birthday input
+                    const dobCell = document.createElement("td");
+                    const dobInput = document.createElement("input");
+                    dobInput.type = "date";
+                    dobInput.name = `diver${i}_birthday`;
+                    dobInput.required = true;
+                    dobCell.appendChild(dobInput);
+                    row.appendChild(dobCell);
+
+                    // Diving status input
+                    const statusCell = document.createElement("td");
+                    const statusSelect = document.createElement("select");
+                    statusSelect.name = `diver${i}_status`;
+                    statusSelect.required = true;
+                    const options = ["-- Select Status --", "Beginner", "Intermediate", "Expert"];
+                    options.forEach(option => {
+                        const optionElement = document.createElement("option");
+                        optionElement.value = option;
+                        optionElement.textContent = option;
+                        statusSelect.appendChild(optionElement);
+                    });
+                    statusCell.appendChild(statusSelect);
+                    row.appendChild(statusCell);
+
+                    container.appendChild(row);
+                }
+            }
+        });
+
+        // Handle form submission
+        document.getElementById("bookingForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent the default form submission
+            
+            const headCount = parseInt(document.getElementById("headCount").value);
+            const divers = [];
+
+            // Collect divers' data
+            for (let i = 1; i <= headCount; i++) {
+                const diver = {
+                    name: document.querySelector(`input[name="diver${i}_name"]`).value,
+                    birthday: document.querySelector(`input[name="diver${i}_birthday"]`).value,
+                    diving_status: document.querySelector(`select[name="diver${i}_status"]`).value
+                };
+                divers.push(diver);
+            }
+
+            const bookingData = {
+                name: document.getElementById("name").value,
+                email: document.getElementById("email").value,
+                contact_number: document.getElementById("number").value,
+                activity: document.getElementById("activity").value,
+                date: document.getElementById("date").value,
+                location: document.getElementById("location").value,
+                number_of_divers: headCount,
+                message: document.getElementById("message").value,
+                age_verification: document.querySelector('input[name="ageVerify"]:checked').value,
+                divers: divers
+            };
+
+            // Send data to the server via AJAX (fetch API)
+            fetch('/submit-booking', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // CSRF Token
+                },
+                body: JSON.stringify(bookingData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Show success message
+                document.getElementById("successMessage").style.display = 'block';
+                // Optionally, you can hide the form after success
+                document.getElementById("bookingForm").reset();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was an error submitting your booking.');
+            });
         });
     </script>
 

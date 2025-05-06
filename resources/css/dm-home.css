@@ -654,9 +654,12 @@ body {
     padding: 30px;
     border-radius: 10px;
     width: 90%;
-    max-width: 500px;
+    max-width: 600px;
     position: relative;
     animation: popupFadeIn 0.3s ease;
+
+    max-height: 80vh;
+    overflow-y: auto;
   }
   
   /* Close Button */
