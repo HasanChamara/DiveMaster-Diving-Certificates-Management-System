@@ -3,21 +3,22 @@
 
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dive Master | Dashboard </title>
-    @vite(['resources/css/dm-dashboard.css'])
-    @vite(['resources/css/dm-tables.css'])
-    @vite(['resources/css/dm-main.css'])
-    @vite(['resources/js/scripts/dm-dashboard-chart.js'])
-    @vite(['resources/js/scripts/dashboard-table.js'])
-    <!-- Swiper.js CDN -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"  crossorigin="anonymous" />
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Dive Master | Dashboard </title>
+   @vite(['resources/css/dm-dashboard.css'])
+   @vite(['resources/css/dm-tables.css'])
+   @vite(['resources/css/dm-main.css'])
+   @vite(['resources/js/scripts/dm-dashboard-chart.js'])
+   @vite(['resources/js/scripts/dashboard-table.js'])
+   <!-- Swiper.js CDN -->
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+      crossorigin="anonymous" />
 
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <link rel="icon" type="image/x-icon" href="/imgs/DiveMaster-Fav.png">
+   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+   <link rel="icon" type="image/x-icon" href="/imgs/DiveMaster-Fav.png">
 
 </head>
 
@@ -91,7 +92,7 @@
                </div>
                <img class="trp-sidebar-bottom__info__user__logout" src="{{ asset('imgs/user-logout.svg') }}" alt="" />
             </div>
-            
+
          </div>
       </aside>
       <div class="trp-right-col trp-container" style="max-height: 100vh; overflow: auto;">
@@ -113,125 +114,138 @@
                      </div>
                      <div class="trp-chart-canvas" style="height: 210px; position: relative; margin-bottom: 20px;">
                         <canvas id="trpMonthlySalesChart"></canvas>
-                    </div>
-                    <div class="trp-monthly-sales-info-grid">
-                     <div class="row">
-                        <div class="col trp-cell">
-                           <h5 id="trpSalesMethod">Scuba </h5>
-                           <p id="trpSalesCount">500,000.00</p>
-                        </div>
-                        <div class="col trp-cell">
-                           <h5 id="trpSalesMethod">Open Dive</h5>
-                           <p id="trpSalesCount">500,000.00</p>
-                        </div>
                      </div>
-                     <div class="row">
-                        <div class="col trp-cell">
-                           <h5 id="trpSalesMethod">Snorkling </h5>
-                           <p id="trpSalesCount">500,000.00</p>
+                     <div class="trp-monthly-sales-info-grid">
+                        <div class="row">
+                           <div class="col trp-cell">
+                              <h5 id="trpSalesMethod">Scuba </h5>
+                              <p id="trpSalesCount">500,000.00</p>
+                           </div>
+                           <div class="col trp-cell">
+                              <h5 id="trpSalesMethod">Open Dive</h5>
+                              <p id="trpSalesCount">500,000.00</p>
+                           </div>
                         </div>
-                        <div class="col trp-cell">
-                           <h5 id="trpSalesMethod">Training</h5>
-                           <p id="trpSalesCount">500,000.00</p>
+                        <div class="row">
+                           <div class="col trp-cell">
+                              <h5 id="trpSalesMethod">Snorkling </h5>
+                              <p id="trpSalesCount">500,000.00</p>
+                           </div>
+                           <div class="col trp-cell">
+                              <h5 id="trpSalesMethod">Training</h5>
+                              <p id="trpSalesCount">500,000.00</p>
+                           </div>
                         </div>
+
                      </div>
-                    
-                    </div>
                   </div>
 
                </div>
                <div class="trp-bar-chart-container chart-wrapper" style="width: 100%;">
                   <div class="trp-chart-inner weekly-sale-chart-inner" style="position: relative;">
-                     <div class="trp-chart-header d-flex align-items-center justify-content-between" style="margin-bottom: 16px; position: relative;">
+                     <div class="trp-chart-header d-flex align-items-center justify-content-between"
+                        style="margin-bottom: 16px; position: relative;">
                         <h3 class="trp-h3 weekly-sale">Weekly Dives Report</h3>
                         <p class="trp-p weekly-sale-week" id="selectWeek">01 Mar 2025 -07 Mar 2025 </p>
                      </div>
                      <div class="trp-chart-canvas" style="height: 400px; position: relative; padding-top: 16px;">
                         <canvas id="trpWeeklyChart"></canvas>
-                    </div>
-                    <div class="trp-weekly-same-floating-card">
-                     <div class="trp-total-sales">
-                        <p class="trp-p trp-total-weekly-sales-count">Total Dives -<span id="trpTotalSales"> 12</span></p>
                      </div>
-                     <div class="trp-monthly-sales-info-grid">
-                        <div class="row">
-                           <div class="col trp-cell">
-                              <h5 id="trpSalesMethod">Scuba</h5>
-                              <p id="trpSalesCount">3</p>
-                           </div>
-                           <div class="col trp-cell">
-                              <h5 id="trpSalesMethod">Open Dive</h5>
-                              <p id="trpSalesCount">5</p>
-                           </div>
+                     <div class="trp-weekly-same-floating-card">
+                        <div class="trp-total-sales">
+                           <p class="trp-p trp-total-weekly-sales-count">Total Dives -<span id="trpTotalSales">
+                                 12</span></p>
                         </div>
-                        <div class="row">
-                           <div class="col trp-cell">
-                              <h5 id="trpSalesMethod">Snorkling</h5>
-                              <p id="trpSalesCount">5</p>
+                        <div class="trp-monthly-sales-info-grid">
+                           <div class="row">
+                              <div class="col trp-cell">
+                                 <h5 id="trpSalesMethod">Scuba</h5>
+                                 <p id="trpSalesCount">3</p>
+                              </div>
+                              <div class="col trp-cell">
+                                 <h5 id="trpSalesMethod">Open Dive</h5>
+                                 <p id="trpSalesCount">5</p>
+                              </div>
                            </div>
-                           <div class="col trp-cell">
-                              <h5 id="trpSalesMethod">Training</h5>
-                              <p id="trpSalesCount">1</p>
+                           <div class="row">
+                              <div class="col trp-cell">
+                                 <h5 id="trpSalesMethod">Snorkling</h5>
+                                 <p id="trpSalesCount">5</p>
+                              </div>
+                              <div class="col trp-cell">
+                                 <h5 id="trpSalesMethod">Training</h5>
+                                 <p id="trpSalesCount">1</p>
+                              </div>
                            </div>
+
                         </div>
-                       
-                       </div>
-                    </div>
-                    
+                     </div>
+
 
                   </div>
                </div>
             </div>
 
-            <h4 class="dashboard-table-heading" style="padding-bottom: 12px;"> Best Selling products</h4>
+            <h4 class="dashboard-table-heading" style="padding-bottom: 12px;">Upcoming Bookings</h4>
 
             <div class="trp-section trp-cus-mgmnt trp-table-container">
                <table class="table trp-table" id="trDataTableBestSelling">
                   <thead>
-                      <tr>
-                          <th>Item Code</th>
-                          <th>Item Name</th>
-                          <th>Item brand</th>
-                          <th>Sales</th>
-                          <th>Item quantity</th>
-                          
-                      </tr>
+                     <tr>
+                        <th>Customer Name</th>
+                        <th>Activity</th>
+                        <th>Location</th>
+                        <th>Date</th>
+                        <th>Head Count</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Instructor</th>
+                        <th>Payment Status</th>
+                        <th colspan="2">Action</th>
+                     </tr>
                   </thead>
                   <tbody>
-                      <script>
-                          for (let i = 1; i <= 50; i++) {
-                              const showSpan = Math.random() < 0.5; // 50% chance to show the <span>
-                              const details = `Month Rent${showSpan ? ' <span class="trp-table-span"> RC</span>' : ''}`;
-              
-                              document.write(`<tr>
-                                  <td>ABC#00${i}</td>
-                                  <td style="width:500px;">Engine Oil 5W-30 (1L) - ${i}</td>
-                                  <td>Caltex</td>
-                                  <td>120</td>
-                                  <td>250</td>
-                                  
+                     <script>
+                        for (let i = 1; i <= 10; i++) {
+                           const showSpan = Math.random() < 0.5; // 50% chance to show the <span>
+                           const details = `Month Rent${showSpan ? ' <span class="trp-table-span"> RC</span>' : ''}`;
+
+                           document.write(`<tr>
+                                  <td>Alex Carder ${i}</td>
+                                  <td>Scuba Dive</td>
+                                  <td>Hikkaduwa</td>
+                                  <td>2025/06/15</td>
+                                  <td>3</td>
+                                  <td>john@mail.com</td>
+                                  <td>+91134568896</td>
+                                  <td>Dayan Gamage</td>
+                                  <td>Advance Paid</td>
+                                  <td><button class="btn"><img src="{{ asset('imgs/edit-icon.svg') }}" /></button></td>
+                                 <td><button class="btn"><img src="{{ asset('imgs/delete-icon.svg') }}" /></button></td>
                               </tr>`);
-                          }
-                      </script>
+                        }
+                     </script>
                   </tbody>
-              </table>
-              
-              <nav class="trp-table-pagination-container">
+               </table>
+
+               <nav class="trp-table-pagination-container">
                   <ul class="pagination d-flex align-items-center justify-content-between m-0 " id="paginationB2C">
-                      <div class="trp-prev-arrow">
-                          <li class="page-item"><a class="page-link trp-previous" href="#" id="trBestSelling_prev">Previous</a></li>
-                      </div>
-                      <div class="trp-page-numbers trBestSelling d-flex"></div>
-                      <div class="trp-next-arrow">
-                          <li class="page-item"><a class="page-link trp-next" href="#" id="trBestSelling_next">Next</a></li>
-                      </div>
+                     <div class="trp-prev-arrow">
+                        <li class="page-item"><a class="page-link trp-previous" href="#"
+                              id="trBestSelling_prev">Previous</a></li>
+                     </div>
+                     <div class="trp-page-numbers trBestSelling d-flex"></div>
+                     <div class="trp-next-arrow">
+                        <li class="page-item"><a class="page-link trp-next" href="#" id="trBestSelling_next">Next</a>
+                        </li>
+                     </div>
                   </ul>
-              </nav>
+               </nav>
             </div>
          </div>
-     
-         
-            
+
+
+
          <div class="trp-right-col-bottom">
             <p>© 2025, Dive Master. All Rights Reserved.</p>
          </div>
@@ -243,10 +257,15 @@
    <script type="module" src="./detailed_dashboard.js"></script>
    <script type="module" src="./trp-table-script.js"></script>
    <script type="module" src="./customer-management.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+      integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+      crossorigin="anonymous"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 
    <!-- scripts end -->
 </body>
+
 </html>

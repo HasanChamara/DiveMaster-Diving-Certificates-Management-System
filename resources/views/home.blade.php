@@ -39,11 +39,11 @@
                 </div>
                 <div class="dm-col dm-right-col">
                     <div class="dm-header-btn">
-                        <button class="dm-book-now-button button btn"> Book Now</button>
+                        <button id="openBookFormPopup" class="dm-book-now-button button btn"> Book Now</button>
                     </div>
                     <div class="dm-register-now-btn dm-header-btn">
                         <button class="dm-register-now-button button btn"> <img src="{{ asset('imgs/diver-icon.png') }}"
-                                alt="Diver Icon" class="dm-diver-icon"> Sign In</button>
+                                alt="Diver Icon" class="dm-diver-icon"> Sign In </button>
                     </div>
                 </div>
             </div>
@@ -286,7 +286,8 @@
         <div class="dm-insta-head">
             <h2> Instagram</h2>
             <p> <span class="wave-img"
-            style="content: url('{{ asset('imgs/wave.png') }}'); position:relative; position: relative; display: block; width: 40px;"></span> Follow us on instagram</p>
+                    style="content: url('{{ asset('imgs/wave.png') }}'); position:relative; position: relative; display: block; width: 40px;"></span>
+                Follow us on instagram</p>
         </div>
     </section>
     <section>
@@ -298,7 +299,7 @@
                 <img src="{{ asset('imgs/insta/insta-4.jpg') }}" alt="Insta Image" class="insta-image">
                 <img src="{{ asset('imgs/insta/insta-5.jpg') }}" alt="Insta Image" class="insta-image">
                 <img src="{{ asset('imgs/insta/insta-6.jpg') }}" alt="Insta Image" class="insta-image">
-             
+
             </div>
         </div>
     </section>
@@ -309,15 +310,79 @@
             </div>
             <div class="dm-col">
                 <div class="dm-social-icons">
-                <img src="{{ asset('imgs/social/facebook.png') }}" alt="Social Image" class="Social-image" width="24">
-                <img src="{{ asset('imgs/social/instagram.png') }}" alt="Social Image" class="Social-image" width="24">
-                <img src="{{ asset('imgs/social/youtube.png') }}" alt="Social Image" class="Social-image" width="24">
-                <img src="{{ asset('imgs/social/tiktok.png') }}" alt="Social Image" class="Social-image" width="24">
-         
+                    <img src="{{ asset('imgs/social/facebook.png') }}" alt="Social Image" class="Social-image"
+                        width="24">
+                    <img src="{{ asset('imgs/social/instagram.png') }}" alt="Social Image" class="Social-image"
+                        width="24">
+                    <img src="{{ asset('imgs/social/youtube.png') }}" alt="Social Image" class="Social-image"
+                        width="24">
+                    <img src="{{ asset('imgs/social/tiktok.png') }}" alt="Social Image" class="Social-image" width="24">
+
                 </div>
             </div>
         </div>
     </section>
+    <div class="booking-popup-overlay" id="BookingPopupOverlay">
+        <div class="popup-content">
+            <span class="close-booking-popup" id="closeBookingPopup">&times;</span>
+            <h2 style="text-align:center;">Book Your Dive Session Now</h2>
+            <form>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="number">Contact Number:</label>
+                <input type="tel" id="number" name="number" required>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="activity">Activity:</label>
+                        <select id="activity" name="activity" required>
+                            <option value="">-- Select Activity --</option>
+                            <option value="Snorkeling">Snorkeling</option>
+                            <option value="Scuba Diving">Scuba Diving</option>
+                            <option value="Free Diving">Free Diving</option>
+                            <option value="Dive Certification">Dive Certification</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="date">Date:</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location:</label>
+                        <select id="location" name="location" required>
+                            <option value="">-- Select Location --</option>
+                            <option value="Hikkaduwa">Hikkaduwa</option>
+                            <option value="Unawatuna">Unawatuna</option>
+                            <option value="Trincomalee">Trincomalee</option>
+                        </select>
+                    </div>
+                </div>
+
+                <label for="headCount">Number of Divers:</label>
+                <input type="number" id="headCount" name="headCount" min="1" required>
+
+                <label for="message">Special Notes:</label>
+                <textarea id="message" name="message" rows="4"></textarea>
+
+                <div class="age-verification">
+                    <label>Are you 18+ years old?</label>
+                    <div style="display: flex; gap: 10px;  align-items: center;"> 
+                        <label style="display: flex; gap: 10px; justify-content: center; align-items: center;"><input type="radio" name="ageVerify" value="yes" required> Yes</label>
+                        <label style="display: flex; gap: 10px; justify-content: center; align-items: center;"><input type="radio" name="ageVerify" value="no"> No</label>
+                    </div>
+                </div>
+
+                <button type="submit">Send Your Request</button>
+            </form>
+        </div>
+    </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -352,6 +417,14 @@
                     crossFade: true
                 },
             });
+        });
+
+        document.getElementById('openBookFormPopup').addEventListener('click', () => {
+            document.getElementById('BookingPopupOverlay').style.display = 'flex';
+        });
+
+        document.getElementById('closeBookingPopup').addEventListener('click', () => {
+            document.getElementById('BookingPopupOverlay').style.display = 'none';
         });
     </script>
 
