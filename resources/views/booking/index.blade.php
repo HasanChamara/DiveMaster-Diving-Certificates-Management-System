@@ -188,10 +188,10 @@
                             <thead>
                                 <tr>
                                     <th>Customer Name</th>
-                                    <th>NIC</th>
+                                    <th style="text-align: center;">NIC</th>
                                     <th>Booking Date</th>
                                     <th>Activity</th>
-                                    <th>Location</th>
+                                    <th style="text-align: center;">Location</th>
                                     <th>People</th>
                                     <th>Status</th>
                                     <th>Instructor</th>
@@ -207,7 +207,7 @@
                                         <td>{{ $booking->date }}</td>
                                         <td>{{ $booking->activity ?? 'Scuba Dive' }}</td>
                                         <td>{{ $booking->location ?? 'Hikkaduwa' }}</td>
-                                        <td>{{ $booking->number_of_divers }}</td>
+                                        <td style="text-align: center;">{{ $booking->number_of_divers }}</td>
                                         <td>
                                             <form action="{{ route('bookings.update', $booking->id) }}" method="POST"
                                                 class="booking-form" data-booking-id="{{ $booking->id }}">

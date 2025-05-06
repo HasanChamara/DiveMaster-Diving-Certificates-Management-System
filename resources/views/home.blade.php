@@ -378,7 +378,7 @@
             <label for="number">Contact Number:</label>
             <input type="tel" id="number" name="number" required>
 
-            <label for="number">NIC/Passport Number:</label>
+            <label for="nic">NIC/Passport Number:</label>
             <input type="text" id="nic" name="nic" required>
 
             <div class="form-row">
