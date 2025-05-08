@@ -192,7 +192,7 @@
                                     <th>Booking Date</th>
                                     <th>Activity</th>
                                     <th style="text-align: center;">Location</th>
-                                    <th>People</th>
+                                    <th style="text-align: center;" colspan="2">People</th>
                                     <th>Status</th>
                                     <th>Instructor</th>
                                     <th>Contact</th>
@@ -208,6 +208,8 @@
                                         <td>{{ $booking->activity ?? 'Scuba Dive' }}</td>
                                         <td>{{ $booking->location ?? 'Hikkaduwa' }}</td>
                                         <td style="text-align: center;">{{ $booking->number_of_divers }}</td>
+                                        <td style="text-align: center;"><button id="diver-detail-popup" class="diver-detail-popup btn"><img src="{{ asset('imgs/edit-icon.svg') }}"
+                                        alt="Update" /></button></td>
                                         <td>
                                             <form action="{{ route('bookings.update', $booking->id) }}" method="POST"
                                                 class="booking-form" data-booking-id="{{ $booking->id }}">

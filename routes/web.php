@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\DiveLogController;
 
 
 // Route::get('/', function () {
@@ -38,6 +39,13 @@ Route::get('/bookings/{id}/details', [BookingController::class, 'showDetailsForm
 Route::post('/bookings/{id}/details', [BookingController::class, 'saveDetails'])->name('bookings.saveDetails');
 
 
+// Dive Logs
+
+// Route to display dive log form for a specific booking
+Route::get('/booking/{booking_id}/dive-log/create', [DiveLogController::class, 'create'])->name('diveLog.create');
+
+// Route to handle dive log form submission
+Route::post('/dive-log', [DiveLogController::class, 'store'])->name('diveLog.store');
 
 
 require __DIR__.'/settings.php';
