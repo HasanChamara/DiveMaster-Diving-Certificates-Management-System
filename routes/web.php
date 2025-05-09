@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AssignmentController;
+use App\Http\Controllers\CertificateController;
+use App\Http\Controllers\InventoryController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -20,6 +23,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
 });
+
+Route::resource(name: 'certificates', controller:CertificateController::class)->middleware(['auth']);
+Route::resource(name: 'inventories', controller:InventoryController::class)->middleware(['auth']);
+Route::resource(name: 'assignments', controller:AssignmentController::class)->middleware(['auth']);
+
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
