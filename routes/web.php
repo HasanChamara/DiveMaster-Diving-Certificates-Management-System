@@ -31,6 +31,12 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 });
+
+
+Route::get('/gesture-recognition', function () {
+    return view('gesture-recognition');
+});
+
 Route::get('/booking', [BookingController::class, 'create'])->name('booking.create');
 Route::post('/submit-booking', [BookingController::class, 'store']);
 Route::get('/bookings', [BookingController::class, 'index'])->name('bookings.index');
