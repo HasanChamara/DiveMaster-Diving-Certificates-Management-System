@@ -73,8 +73,10 @@
                         <button id="openBookFormPopup" class="dm-book-now-button button btn"> Book Now</button>
                     </div>
                     <div class="dm-register-now-btn dm-header-btn">
+                        <a href="{{ route('login') }}">
                         <button class="dm-register-now-button button btn"> <img src="{{ asset('imgs/diver-icon.png') }}"
-                                alt="Diver Icon" class="dm-diver-icon"> Sign In </button>
+                                alt="Diver Icon" class="dm-diver-icon"> Log In </button>
+                        </a>
                     </div>
                 </div>
             </div>
