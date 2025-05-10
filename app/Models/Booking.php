@@ -11,7 +11,7 @@ class Booking extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'email', 'contact_number','nic', 'activity', 'date', 'location', 'number_of_divers', 'message', 'age_verification'
+        'name', 'email', 'contact_number','nic', 'activity', 'date', 'location', 'number_of_divers','status', 'message', 'age_verification'
     ];
 
     public function divers()

@@ -9,8 +9,7 @@
     @vite(['resources/css/dm-dashboard.css'])
     @vite(['resources/css/dm-tables.css'])
     @vite(['resources/css/dm-main.css'])
-    @vite(['resources/js/scripts/dm-dashboard-chart.js'])
-    @vite(['resources/js/scripts/dashboard-table.js'])
+  
     <!-- Swiper.js CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -267,14 +266,11 @@
                                                 class="diver-detail-popup btn"><img src="{{ asset('imgs/edit-icon.svg') }}"
                                                     alt="Update" /></a></td>
                                         <td>
-                                            <form action="{{ route('bookings.update', $booking->id) }}" method="POST"
-                                                class="booking-form" data-booking-id="{{ $booking->id }}">
-                                                @csrf
-                                                <select name="status" required class="status-select"
-                                                    onchange="checkStatus({{ $booking->id }}, this)">
-                                                    <option value="Pending" {{ $booking->status == 'Pending' ? 'selected' : '' }}>Pending</option>
-                                                    <option value="Accepted" {{ $booking->status == 'Accepted' ? 'selected' : '' }}>Accepted</option>
-                                                </select>
+                                            <select id="status-select-{{ $booking->id }}" name="status" required class="status-select"
+                                                onchange="checkStatus({{ $booking->id }}, this)">
+                                                <option value="Pending" {{ $booking->status == 'Pending' ? 'selected' : '' }}>Pending</option>
+                                                <option value="Accepted" {{ $booking->status == 'Accepted' ? 'selected' : '' }}>Accepted</option>
+                                            </select>
                                         </td>
                                         <td>
                                             <input type="text" name="instructor_status" value="Pending" required>
@@ -320,12 +316,13 @@
                             @csrf
                             <!-- Hidden field for booking_id -->
                             <input type="text" name="booking_id" id="modalBookingId">
-                            
+                            <!-- Hidden field for status -->
+                            <input type="hidden" name="status" value="Accepted">
+
                             <!-- Instructor Dropdown -->
                             <div>
                                 <label for="instructor">Instructor:</label>
                                 <select name="instructor" required>
-                                    <!-- Loop through instructors passed from the controller -->
                                     @foreach($instructors as $instructor)
                                         <option value="{{ $instructor->id }}">{{ $instructor->name }}</option>
                                     @endforeach
@@ -376,63 +373,54 @@
 
         // Enhanced form submission handler
         document.getElementById('bookingDetailsForm').addEventListener('submit', async function (event) {
-            event.preventDefault();  // Prevent default form submission
-            
+            event.preventDefault();
+
             const form = event.target;
-            const submitBtn = form.querySelector('button[type="submit"]');  // Get the submit button
+            const submitBtn = form.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn.textContent;
-            
-            // Show loading state
+
             submitBtn.disabled = true;
-            submitBtn.classList.add('loading');
             submitBtn.textContent = 'Saving...';
-            
+
             try {
                 const formData = new FormData(form);
-                
-                // Log form data to console
-                console.log('Form data being submitted:');
-                for (let [key, value] of formData.entries()) {
-                    console.log(`${key}: ${value}`);
-                }
-
-                // Get CSRF token from the meta tag
                 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                
+
                 const response = await fetch(form.action, {
                     method: 'POST',
                     body: formData,
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest',
                         'Accept': 'application/json',
-                        'X-CSRF-TOKEN': csrfToken // Pass CSRF token here
-                    }
+                        'X-CSRF-TOKEN': csrfToken,
+                    },
                 });
-                
+
                 const data = await response.json();
-                console.log('Server response:', data);
-                
+
                 if (!response.ok) {
                     throw new Error(data.message || 'Server returned an error');
                 }
-                
+
                 if (data.success) {
                     alert('Booking details saved successfully!');
-                    document.getElementById('popupModal').style.display = "none";  // Close modal
-                    window.location.reload();  // Reload page to reflect changes
-                } else {
-                    alert('Error: ' + (data.message || 'Failed to save booking details'));
-                    if (data.errors) {
-                        console.error('Validation errors:', data.errors);
+                    document.getElementById('popupModal').style.display = "none";
+
+                    // Update the status select input to "Accepted"
+                    const selectElement = document.getElementById(`status-select-${formData.get('booking_id')}`);
+                    if (selectElement) {
+                        selectElement.value = 'Accepted';
                     }
+
+                    window.location.reload(); // Reload page to reflect changes
+                } else {
+                    throw new Error(data.message || 'Failed to save booking details');
                 }
             } catch (error) {
                 console.error('Submission error:', error);
                 alert('Error: ' + error.message);
             } finally {
-                // Reset button state
                 submitBtn.disabled = false;
-                submitBtn.classList.remove('loading');
                 submitBtn.textContent = originalBtnText;
             }
         });
