@@ -51,6 +51,8 @@ Route::post('/bookings/{id}', [BookingController::class, 'update'])->name('booki
 Route::get('/bookings/{id}/details', [BookingController::class, 'showDetailsForm'])->name('bookings.showDetailsForm');
 Route::post('/bookings/{id}/details', [BookingController::class, 'saveDetails'])->name('bookings.saveDetails');
 
+Route::post('/bookings/details', [BookingController::class, 'saveBookingDetails'])->name('bookings.details.save');
+
 // Route to display register and login forms
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);

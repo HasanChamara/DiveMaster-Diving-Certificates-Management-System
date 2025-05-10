@@ -9,12 +9,16 @@ class BookingDetail extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'booking_id', 
-        'names_of_buddies', 
-        'boat_number', 
-        'required_equipment'
-    ];
+    protected $table = 'booking_details';  // Optional if table name is the plural form of model
 
-    public $timestamps = true; // Optionally enable timestamps for this table
+    protected $fillable = [
+        'booking_id',
+        'instructor_id',
+        'number_of_buddies',
+        'boat_number',
+        'required_equipment',
+        'instructor_status',
+    ];
+    
 }
+
