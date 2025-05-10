@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AssignmentController;
+use App\Http\Controllers\CertificateController;
+use App\Http\Controllers\InventoryController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\BookingController;
@@ -85,6 +88,9 @@ Route::get('/edit-dive-log/{id}/{diver_id}', [DiveLogController::class, 'edit'])
 Route::put('/dive-log/update/{id}/{diver_id}', [DiveLogController::class, 'update'])->name('diveLog.update');
 
 
+Route::resource(name: 'certificates', controller:CertificateController::class)->middleware(['auth']);
+Route::resource(name: 'inventories', controller:InventoryController::class)->middleware(['auth']);
+Route::resource(name: 'assignments', controller:AssignmentController::class)->middleware(['auth']);
 
 
 require __DIR__.'/settings.php';
