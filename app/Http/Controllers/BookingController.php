@@ -8,7 +8,6 @@ use App\Models\BookingDetail;
 use App\Models\Diver;
 use App\Models\User; // Import the User model
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class BookingController extends Controller
@@ -132,47 +131,6 @@ class BookingController extends Controller
         ]);
 
         return response()->json(['success' => true, 'message' => 'Booking details saved successfully!']);
-    }
-
-    public function instructor_index()
-    {
-        // Get the instructor's ID from the authenticated user
-        $instructorId = Auth::user()->id;
-
-        // Retrieve the bookings that belong to the current instructor
-        $bookings = DB::table('bookings')
-            ->join('booking_details', 'bookings.id', '=', 'booking_details.booking_id')
-            ->where('booking_details.instructor_id', '=', $instructorId)
-            ->select('bookings.*', 'booking_details.*') // Select relevant columns
-            ->get();
-
-        // Pass the bookings data to the view
-        return view('instructor-dashboard', compact('bookings'));
-    }
-
-    // Method to update booking status
-    public function updateBookingStatus(Request $request)
-    {
-        // Validate the incoming request
-        $request->validate([
-            'booking_id' => 'required|exists:bookings,id',
-            'instructor_status' => 'required|in:Pending,Accepted,Rejected',
-        ]);
-
-        // Find the booking detail by booking_id
-        $bookingDetail = BookingDetails::where('booking_id', $request->booking_id)->first();
-
-        if ($bookingDetail) {
-            // Update the status
-            $bookingDetail->instructor_status = $request->instructor_status;
-            $bookingDetail->save(); // Save the updated status
-
-            // Return a success response
-            return response()->json(['success' => true]);
-        }
-
-        // Return an error response if booking detail not found
-        return response()->json(['success' => false], 400);
     }
 
 }
