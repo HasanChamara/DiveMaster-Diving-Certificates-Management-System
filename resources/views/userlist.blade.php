@@ -29,7 +29,7 @@
                         Dashboard
                     </a>
                 </li>
-                <li class="active">
+                <li >
                     <a href="/bookings">
                         <span><img src="{{ asset('imgs/dm-bookings.png') }}" width="24" height="24" alt="" /></span>
                         Booking Requests
@@ -48,7 +48,7 @@
                     </a>
                 </li>
                 @if(Auth::user()->role === 'Admin')
-                <li>
+                <li class="active">
                     <a href="/admin/users">
                         <span><img src="{{ asset('imgs/users.png') }}" width="24" height="24" alt="" /></span>
                         Users

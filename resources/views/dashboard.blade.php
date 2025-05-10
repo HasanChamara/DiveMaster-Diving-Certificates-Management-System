@@ -53,13 +53,13 @@
             </li>
             
             @if(Auth::user()->role === 'Admin')
-            <li>
-               <a href="/admin/users">
-                  <span><img src="{{ asset('imgs/dm-equipments.png') }}" width="24" height="24" alt="" /></span>
-                  Users
-               </a>
-            </li>
-            @endif
+                <li class="active">
+                    <a href="/admin/users">
+                        <span><img src="{{ asset('imgs/users.png') }}" width="24" height="24" alt="" /></span>
+                        Users
+                    </a>
+                </li>
+                @endif
             <li>
                <a href="#">
                   <span><img src="{{ asset('imgs/dm-cogwheel.png') }}" width="24" height="24" alt="" /></span>
