@@ -14,8 +14,6 @@ class AdminController extends Controller
         return view('userlist', compact('users', 'roles'));
     }
 
-    
-
     public function updateRole(Request $request, $id)
     {
         $request->validate([

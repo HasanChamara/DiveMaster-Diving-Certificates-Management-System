@@ -83,7 +83,7 @@
             </li>
          @endif
             @if(Auth::user()->role === 'Admin')
-            <li  class="active">
+            <li>
                <a href="/admin/users">
                  <span><img src="{{ asset('imgs/users.png') }}" width="24" height="24" alt="" /></span>
                  Users
