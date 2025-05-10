@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\DiveLogController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ForgotPasswordController;
 
 
 // Route::get('/', function () {
@@ -15,9 +19,9 @@ Route::get('/about', function () {
 Route::get('/contact', function () {
     return Inertia::render('Contact');
 })->name('home');
-Route::get('/login', function () {
-    return Inertia::render('Contact');
-})->name('home');
+// Route::get('/login', function () {
+//     return Inertia::render('Contact');
+// })->name('home');
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
@@ -44,6 +48,25 @@ Route::post('/bookings/{id}', [BookingController::class, 'update'])->name('booki
 Route::get('/bookings/{id}/details', [BookingController::class, 'showDetailsForm'])->name('bookings.showDetailsForm');
 Route::post('/bookings/{id}/details', [BookingController::class, 'saveDetails'])->name('bookings.saveDetails');
 
+// Route to display register and login forms
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+Route::post('/register', [AuthController::class, 'register']);
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/dashboard', [AuthController::class, 'dashboard'])->middleware('auth')->name('dashboard');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+//Admin Controller
+Route::get('/admin/users', [AdminController::class, 'index'])->middleware('auth')->name('admin.users');
+Route::post('/admin/users/update-role/{id}', [AdminController::class, 'updateRole'])->middleware('auth')->name('admin.updateRole');
+Route::delete('/admin/users/delete/{id}', [AdminController::class, 'deleteUser'])->name('admin.deleteUser');
+
+//Profile Routes
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    // Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+});
 
 // Dive Logs
 

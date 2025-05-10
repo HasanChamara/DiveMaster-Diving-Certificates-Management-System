@@ -51,7 +51,15 @@
                   Equipments Management
                </a>
             </li>
-      
+            
+            @if(Auth::user()->role === 'Admin')
+            <li>
+               <a href="/admin/users">
+                  <span><img src="{{ asset('imgs/dm-equipments.png') }}" width="24" height="24" alt="" /></span>
+                  Users
+               </a>
+            </li>
+            @endif
             <li>
                <a href="#">
                   <span><img src="{{ asset('imgs/dm-cogwheel.png') }}" width="24" height="24" alt="" /></span>
@@ -62,20 +70,31 @@
 
          <div class="trp-sidebar-bottom">
             <div class="trp-sidebar-bottom__info">
-               <img class="trp-sidebar-bottom__info__user" src="{{ asset('imgs/Avatar.svg') }}" alt="" />
+               <!-- <img class="trp-sidebar-bottom__info__user" src="{{ asset('imgs/Avatar.svg') }}" alt="" />
                <div>
-                  <h5>Dulanjaya</h5>
-                  <h6>dulanjaya@divemaster.com</h6>
-               </div>
+                  <h5>{{ auth()->user()->name }}</h5>
+                  <h6>{{ auth()->user()->email }}</h6>
+               </div> -->
+               <a href="{{ route('profile.edit') }}" style="text-decoration: none; color: inherit;">
+                  <div style="display: flex; align-items: center;">
+                     <img class="trp-sidebar-bottom__info__user" src="{{ asset('imgs/Avatar.svg') }}" alt="" />
+                     <div style="margin-left: 10px;">
+                        <h5>{{ auth()->user()->name }}</h5>
+                        <h6>{{ auth()->user()->email }}</h6>
+                     </div>
+                  </div>
+               </a>
+               <a href="/logout">
                <img class="trp-sidebar-bottom__info__user__logout" src="{{ asset('imgs/user-logout.svg') }}" alt="" />
+                </a>
             </div>
-
          </div>
       </aside>
       <div class="trp-right-col trp-container" style="max-height: 100vh; overflow: auto;">
          <div class="trp-right-col-top">
             <div class="trp-col left" style="margin-bottom: 24px;">
-               <h2 class="trp-h2 trp-dashboard-title">Welcome back, <span id="TRPuserName">Dulanjaya</span></h2>
+               <h2>Welcome, {{ auth()->user()->name }}</h2>
+               <!-- <p><a href="/logout">Logout</a></p> -->
             </div>
 
             <div class="trp-section trp-chart-container d-flex  justify-content-between" style="margin-bottom: 40px;">

@@ -16,92 +16,6 @@
         crossorigin="anonymous" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <link rel="icon" type="image/x-icon" href="/imgs/DiveMaster-Fav.png">
-    <style>
-        /* Additional styles for booking management */
-        .status-select {
-            padding: 6px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-        }
-
-        /* Popup Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 999;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-
-        .modal-content {
-            background-color: white;
-            margin: 10% auto;
-            padding: 24px;
-            border-radius: 8px;
-            width: 50%;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .modal-content form div {
-            margin-bottom: 16px;
-        }
-
-        .modal-content label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: 500;
-        }
-
-        .modal-content input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        .modal-content button {
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .modal-content button[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-        }
-
-        .modal-content button.close-btn {
-            background-color: #f1f1f1;
-            border: 1px solid #ddd;
-            margin-left: 10px;
-        }
-
-        .success-message {
-            background-color: #d4edda;
-            color: #155724;
-            padding: 10px;
-            border-radius: 4px;
-            margin-bottom: 16px;
-        }
-    </style>
 </head>
 
 <body>
@@ -133,6 +47,14 @@
                         Equipments Management
                     </a>
                 </li>
+                @if(Auth::user()->role === 'Admin')
+                <li>
+                    <a href="/admin/users">
+                        <span><img src="{{ asset('imgs/users.png') }}" width="24" height="24" alt="" /></span>
+                        Users
+                    </a>
+                </li>
+                @endif
                 <li>
                     <a href="#">
                         <span><img src="{{ asset('imgs/dm-cogwheel.png') }}" width="24" height="24" alt="" /></span>
@@ -167,80 +89,72 @@
         <div class="trp-right-col trp-container" style="max-height: 100vh; overflow: auto;">
             <div class="trp-right-col-top">
                 <div class="trp-col left" style="margin-bottom: 24px;">
-                    <h2 class="trp-h2 trp-dashboard-title">New Booking Requests</h2>
+                    <h2 class="trp-h2 trp-dashboard-title">User Management</h2>
                 </div>
 
                 @if(session('success'))
                     <div class="success-message">{{ session('success') }}</div>
                 @endif
 
-                <!-- <h4 class="dashboard-table-heading" style="padding-bottom: 12px;">Manage Bookings</h4> -->
+                <!-- <h4 class="dashboard-table-heading" style="padding-bottom: 12px;"></h4> -->
 
                 <div class="tab-pane fade show active" id="pills-b2c" role="tabpanel" aria-labelledby="pills-b2c-tab">
-                    <div
-                        class="trp-section trp-cus-mgmnt trp-search-form-bar d-flex align-items-center justify-content-between">
-                        <form method="" action="">
-                            <div class="trp-search-container">
-                                <input type="text" class="trp-search" name="customer-search"
-                                    placeholder="Search By Name, Mobile, Email, NIC Number" />
-                            </div>
-                        </form>
-                        <div id="trp-cus-filter-by" class="trp-cus-filter-by">
-                            <button
-                                class="btn btn-primary trp-button trp-filter-date-btn light d-flex align-items-center justify-content-center"
-                                type="button">Filter By Date</button>
-                        </div>
-                    </div>
 
+                    <!-- Flash Messages -->
+                    @if(session('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session('success') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+
+                    @if(session('error'))
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ session('error') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
 
                     <div class="trp-section trp-cus-mgmnt trp-table-container">
                         <table class="table trp-table" id="trDataTableBookings">
                             <thead>
                                 <tr>
-                                    <th>Customer Name</th>
-                                    <th style="text-align: center;">NIC</th>
-                                    <th>Booking Date</th>
-                                    <th>Activity</th>
-                                    <th style="text-align: center;">Location</th>
-                                    <th style="text-align: center;" colspan="2">People</th>
-                                    <th>Status</th>
-                                    <th>Instructor</th>
-                                    <th>Contact</th>
-                                    <th>Actions</th>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Current Role</th>
+                                    <th style="width: 400px;">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($bookings as $booking)
+                                @foreach($users as $user)
                                     <tr>
-                                        <td>{{ $booking->name }}</td>
-                                        <td>{{ $booking->nic }}</td>
-                                        <td>{{ $booking->date }}</td>
-                                        <td>{{ $booking->activity ?? 'Scuba Dive' }}</td>
-                                        <td>{{ $booking->location ?? 'Hikkaduwa' }}</td>
-                                        <td style="text-align: center;">{{ $booking->number_of_divers }}</td>
-                                        <td style="text-align: center;"><a href="/booking/{{ $booking->id }}/dive-log/create" id="diver-detail-popup" class="diver-detail-popup btn"><img src="{{ asset('imgs/edit-icon.svg') }}"
-                                        alt="Update" /></a></td>
+                                        <td>{{ $user->id }}</td>
+                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $user->email }}</td>
                                         <td>
-                                            <form action="{{ route('bookings.update', $booking->id) }}" method="POST"
-                                                class="booking-form" data-booking-id="{{ $booking->id }}">
+                                            <form class="form-inline" action="{{ route('admin.updateRole', $user->id) }}"
+                                                method="POST">
                                                 @csrf
-                                                <select name="status" required class="status-select"
-                                                    onchange="checkStatus({{ $booking->id }}, this)">
-                                                    <option value="Pending" {{ $booking->status == 'Pending' ? 'selected' : '' }}>Pending</option>
-                                                    <option value="Accepted" {{ $booking->status == 'Accepted' ? 'selected' : '' }}>Accepted</option>
+                                                <select name="role" class="form-select form-select-sm">
+                                                    @foreach($roles as $role)
+                                                        <option value="{{ $role }}" {{ $user->role === $role ? 'selected' : '' }}>
+                                                            {{ $role }}
+                                                        </option>
+                                                    @endforeach
                                                 </select>
                                         </td>
-                                        <td>
-                                            <input type="text" name="instructor" value="{{ $booking->instructor }}"
-                                                placeholder="Enter instructor name" class="status-select">
-                                        </td>
-                                        <td>
-                                            <a href="mailto:{{ $booking->email }}">{{ $booking->email }}</a><br>
-                                            {{ $booking->contact_number ?? '+94XXXXXXXX' }}
-                                        </td>
-                                        <td>
+                                        <td style="width: auto; display: flex; justify-content: center;" class="d-flex action-buttons">
                                             <button type="submit" class="btn"><img src="{{ asset('imgs/edit-icon.svg') }}"
                                                     alt="Update" /></button>
+                                            </form>
+                                            <form class="form-inline" action="{{ route('admin.deleteUser', $user->id) }}"
+                                                method="POST"
+                                                onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn"><img src="{{ asset('imgs/delete-icon.svg') }}"
+                                                alt="Delete" /></button>
                                             </form>
                                         </td>
                                     </tr>
