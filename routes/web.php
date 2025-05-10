@@ -105,9 +105,9 @@ Route::post('/update-booking-status', [BookingController::class, 'updateBookingS
 
 Route::resource(name: 'certificates', controller:CertificateController::class)->middleware(['auth']);
 Route::resource(name: 'inventories', controller:InventoryController::class)->middleware(['auth']);
-// Route::resource(name: 'assignments', controller:AssignmentController::class)->middleware(['auth']);
+Route::resource(name: 'assignments', controller:AssignmentController::class)->middleware(['auth']);
 
-Route::get('/assignments', [AssignmentController::class, 'index'])->name('assignments.index');
+// Route::get('/assignments', [AssignmentController::class, 'index'])->name('assignments.index');
 
 
 require __DIR__.'/settings.php';
