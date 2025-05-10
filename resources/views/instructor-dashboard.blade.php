@@ -167,7 +167,6 @@
                                 <tr>
                                     <th>Name</th>                                   
                                     <th>NIC</th>
-                                    <th style="text-align: center;">Email</th>
                                     <th>Contact Number</th>
                                     <th style="text-align: center;">Activity</th>
                                     <th style="text-align: center;">Date</th>
@@ -176,7 +175,7 @@
                                     <th>No of Buddies</th>
                                     <th>Boat Number</th>
                                     <th>Required Equipment</th>
-                                    <th>Action</th>
+                                    <th colspan="2">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -184,7 +183,6 @@
                                     <tr>
                                         <td>{{ $booking->name }}</td>
                                         <td>{{ $booking->nic }}</td>
-                                        <td>{{ $booking->email }}</td>
                                         <td>{{ $booking->contact_number }}</td>
                                         <td>{{ $booking->activity }}</td>
                                         <td style="text-align: center;">{{ $booking->date }}</td>
@@ -194,14 +192,18 @@
                                         <td>{{ $booking->boat_number }}</td>
                                         <td>{{ $booking->required_equipment }}</td>
 
-                                        <!-- Action Dropdown with Status -->
-                                        <td>
-                                            <select class="form-control status-dropdown" data-booking-id="{{ $booking->id }}">
-                                                <option value="Pending" {{ $booking->instructor_status == 'Pending' ? 'selected' : '' }} style="background-color: yellow;">Pending</option>
-                                                <option value="Accepted" {{ $booking->instructor_status == 'Accepted' ? 'selected' : '' }} style="background-color: green; color: white;">Accepted</option>
-                                                <option value="Rejected" {{ $booking->instructor_status == 'Rejected' ? 'selected' : '' }} style="background-color: red; color: white;">Rejected</option>
-                                            </select>
-                                        </td>
+                                        <form action="/update-booking-status/{{ $booking->id }}" method="POST">
+                                            @csrf
+                                            <!-- Action Dropdown with Status -->
+                                            <td>
+                                                <select name="instructor_status" class="form-control status-dropdown">
+                                                    <option value="Pending" {{ $booking->instructor_status == 'Pending' ? 'selected' : '' }} style="background-color: yellow;">Pending</option>
+                                                    <option value="Accepted" {{ $booking->instructor_status == 'Accepted' ? 'selected' : '' }} style="background-color: green; color: white;">Accepted</option>
+                                                    <option value="Rejected" {{ $booking->instructor_status == 'Rejected' ? 'selected' : '' }} style="background-color: red; color: white;">Rejected</option>
+                                                </select>
+                                            </td>
+                                            <td><button type="submit" class="btn btn-primary">Update</button></td>
+                                        </form>
                                     </tr>
                             @endforeach
                             </tbody>
@@ -213,51 +215,7 @@
         </div>
     </div>
 
-    <!-- scripts start -->
-    <script>
-
-    $(document).ready(function() {
-        // Detect when the dropdown value changes
-        $('.status-dropdown').change(function() {
-            var status = $(this).val(); // Get selected status
-            var bookingId = $(this).data('booking-id'); // Get related booking ID
-
-            // Send AJAX request to update the status
-            $.ajax({
-                url: '/update-booking-status', // Make sure the route is correct
-                method: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}', // CSRF Token
-                    booking_id: bookingId,
-                    instructor_status: status
-                },
-                success: function(response) {
-                    if (response.success) {
-                        // Optionally show a success message or do something after successful update
-                        alert('Booking status updated successfully!');
-                    } else {
-                        alert('Error: Could not update status.');
-                    }
-                },
-                error: function(xhr, status, error) {
-                    // Handle errors if any
-                    console.error('Error updating status:', error);
-                    alert('There was an error updating the status. Please try again.');
-                }
-            });
-        });
-    });
-
-
-
-        // Initialize pagination for the bookings table
-        document.addEventListener('DOMContentLoaded', function () {
-            // Assuming the dashboard-table.js has pagination functions
-            if (typeof initTablePagination === 'function') {
-                initTablePagination('trDataTableBookings', 'trBookings');
-            }
-        });
-    </script>
+ 
     <script type="module" src="./dashboard.js"></script>
     <script type="module" src="./detailed_dashboard.js"></script>
     <script type="module" src="./trp-table-script.js"></script>

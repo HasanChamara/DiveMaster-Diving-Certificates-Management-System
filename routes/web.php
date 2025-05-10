@@ -100,7 +100,7 @@ Route::put('/dive-log/update/{id}/{diver_id}', [DiveLogController::class, 'updat
 
 Route::get('/instructor-bookings', [BookingController::class, 'instructor_index']);
 // Route to update booking status
-Route::post('/update-booking-status', [BookingController::class, 'updateBookingStatus']);
+Route::post('/update-booking-status/{id}', [BookingController::class, 'updateBookingStatus']);
 
 
 Route::resource(name: 'certificates', controller:CertificateController::class)->middleware(['auth']);

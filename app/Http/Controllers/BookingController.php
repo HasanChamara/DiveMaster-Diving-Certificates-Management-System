@@ -151,28 +151,23 @@ class BookingController extends Controller
     }
 
     // Method to update booking status
-    public function updateBookingStatus(Request $request)
+    public function updateBookingStatus(Request $request, $id)
     {
-        // Validate the incoming request
         $request->validate([
-            'booking_id' => 'required|exists:bookings,id',
             'instructor_status' => 'required|in:Pending,Accepted,Rejected',
         ]);
 
-        // Find the booking detail by booking_id
-        $bookingDetail = BookingDetails::where('booking_id', $request->booking_id)->first();
+        // Find the booking detail by ID
+        $bookingDetail = BookingDetail::find($id);
 
         if ($bookingDetail) {
-            // Update the status
             $bookingDetail->instructor_status = $request->instructor_status;
-            $bookingDetail->save(); // Save the updated status
+            $bookingDetail->save();
 
-            // Return a success response
-            return response()->json(['success' => true]);
+            return redirect()->back()->with('success', 'Status updated successfully');
         }
 
-        // Return an error response if booking detail not found
-        return response()->json(['success' => false], 400);
+        return redirect()->back()->with('error', 'Booking not found');
     }
 
 }
