@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Dive Master | Booking Management</title>
     @vite(['resources/css/dm-dashboard.css'])
     @vite(['resources/css/dm-tables.css'])
@@ -247,7 +248,7 @@
                                     <th style="text-align: center;">Location</th>
                                     <th style="text-align: center;" colspan="2">People</th>
                                     <th>Status</th>
-                                    <th>Instructor</th>
+                                    <th>Instructor's Status</th>
                                     <th>Contact</th>
                                     <th>Actions</th>
                                 </tr>
@@ -276,15 +277,7 @@
                                                 </select>
                                         </td>
                                         <td>
-                                        <select name="instructor" class="status-select" required>
-                                            <option value="">Select Instructor</option>
-                                            @foreach($instructors as $instructor)
-                                                <option value="{{ $instructor->name }}" 
-                                                    {{ $booking->instructor == $instructor->name ? 'selected' : '' }}>
-                                                    {{ $instructor->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
+                                            <input type="text" name="instructor_status" value="Pending" required>
                                         </td>
                                         <td>
                                             <a href="mailto:{{ $booking->email }}">{{ $booking->email }}</a><br>
@@ -322,21 +315,42 @@
                     <div class="modal-content">
                         <span class="close">&times;</span>
                         <h2>Additional Booking Details</h2>
-                        <form action="#" method="POST" id="bookingDetailsForm">
+                        <!-- Form to save booking details -->
+                        <form action="{{ route('bookings.details.save') }}" method="POST" id="bookingDetailsForm">
                             @csrf
-                            <input type="hidden" name="booking_id" id="modalBookingId">
+                            <!-- Hidden field for booking_id -->
+                            <input type="text" name="booking_id" id="modalBookingId">
+                            
+                            <!-- Instructor Dropdown -->
+                            <div>
+                                <label for="instructor">Instructor:</label>
+                                <select name="instructor" required>
+                                    <!-- Loop through instructors passed from the controller -->
+                                    @foreach($instructors as $instructor)
+                                        <option value="{{ $instructor->id }}">{{ $instructor->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <!-- Number of Buddies -->
                             <div>
                                 <label for="number_of_buddies">Number of Buddies:</label>
-                                <input type="text" name="number_of_buddies" required>
+                                <input type="number" name="number_of_buddies" required min="1">
                             </div>
+
+                            <!-- Boat Number -->
                             <div>
                                 <label for="boat_number">Boat Number:</label>
-                                <input type="text" name="boat_number">
+                                <input type="text" name="boat_number" placeholder="Enter boat number">
                             </div>
+
+                            <!-- Required Equipment -->
                             <div>
                                 <label for="required_equipment">Required Equipment:</label>
-                                <input type="text" name="required_equipment">
+                                <input type="text" name="required_equipment" placeholder="Enter required equipment">
                             </div>
+
+                            <!-- Submit and Cancel Buttons -->
                             <div>
                                 <button type="submit">Save Details</button>
                                 <button type="button" class="close-btn">Cancel</button>
@@ -344,56 +358,107 @@
                         </form>
                     </div>
                 </div>
-            </div>
 
-            <div class="trp-right-col-bottom">
-                <p>© 2025, Dive Master. All Rights Reserved.</p>
-            </div>
-        </div>
-    </div>
+                <div class="trp-right-col-bottom">
+                    <p>© 2025, Dive Master. All Rights Reserved.</p>
+                </div>
 
     <!-- scripts start -->
     <script>
-        // Function to handle status change and show popup for Accepted bookings
+        // Function to handle status change and show popup
         function checkStatus(bookingId, selectElement) {
             if (selectElement.value === 'Accepted') {
-                // Show the popup when status is Accepted
                 const modal = document.getElementById('popupModal');
                 modal.style.display = "block";
-
-                // Set the booking ID in the hidden field
                 document.getElementById('modalBookingId').value = bookingId;
-
-                // Update the form action with the correct booking ID
-                const detailsForm = document.getElementById('bookingDetailsForm');
-                detailsForm.action = `/bookings/${bookingId}/details`;
             }
         }
 
-        // Close the modal when the user clicks the "x" or Cancel button
-        document.querySelector('.close').onclick = function () {
-            document.getElementById('popupModal').style.display = "none";
-        }
+        // Enhanced form submission handler
+        document.getElementById('bookingDetailsForm').addEventListener('submit', async function (event) {
+            event.preventDefault();  // Prevent default form submission
+            
+            const form = event.target;
+            const submitBtn = form.querySelector('button[type="submit"]');  // Get the submit button
+            const originalBtnText = submitBtn.textContent;
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.classList.add('loading');
+            submitBtn.textContent = 'Saving...';
+            
+            try {
+                const formData = new FormData(form);
+                
+                // Log form data to console
+                console.log('Form data being submitted:');
+                for (let [key, value] of formData.entries()) {
+                    console.log(`${key}: ${value}`);
+                }
 
-        document.querySelector('.close-btn').onclick = function () {
-            document.getElementById('popupModal').style.display = "none";
-        }
+                // Get CSRF token from the meta tag
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken // Pass CSRF token here
+                    }
+                });
+                
+                const data = await response.json();
+                console.log('Server response:', data);
+                
+                if (!response.ok) {
+                    throw new Error(data.message || 'Server returned an error');
+                }
+                
+                if (data.success) {
+                    alert('Booking details saved successfully!');
+                    document.getElementById('popupModal').style.display = "none";  // Close modal
+                    window.location.reload();  // Reload page to reflect changes
+                } else {
+                    alert('Error: ' + (data.message || 'Failed to save booking details'));
+                    if (data.errors) {
+                        console.error('Validation errors:', data.errors);
+                    }
+                }
+            } catch (error) {
+                console.error('Submission error:', error);
+                alert('Error: ' + error.message);
+            } finally {
+                // Reset button state
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('loading');
+                submitBtn.textContent = originalBtnText;
+            }
+        });
 
-        // Close the modal when the user clicks anywhere outside of the modal
-        window.onclick = function (event) {
+        // Modal close handlers
+        document.querySelector('.close').onclick = 
+        document.querySelector('.close-btn').onclick = 
+        function() {
+            document.getElementById('popupModal').style.display = "none";
+        };
+        
+        window.onclick = function(event) {
             if (event.target == document.getElementById('popupModal')) {
                 document.getElementById('popupModal').style.display = "none";
             }
-        }
+        };
 
-        // Initialize pagination for the bookings table
-        document.addEventListener('DOMContentLoaded', function () {
-            // Assuming the dashboard-table.js has pagination functions
+        // Initialize pagination
+        document.addEventListener('DOMContentLoaded', function() {
             if (typeof initTablePagination === 'function') {
                 initTablePagination('trDataTableBookings', 'trBookings');
             }
         });
     </script>
+    <!-- scripts end -->
+
     <script type="module" src="./dashboard.js"></script>
     <script type="module" src="./detailed_dashboard.js"></script>
     <script type="module" src="./trp-table-script.js"></script>

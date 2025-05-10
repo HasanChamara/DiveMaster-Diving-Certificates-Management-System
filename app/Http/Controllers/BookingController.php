@@ -105,23 +105,89 @@ class BookingController extends Controller
         return view('bookings.details', compact('booking'));
     }
 
-    // Save the additional details for the booking
-    public function saveDetails(Request $request, $id)
+    // // Save the additional details for the booking
+    // public function saveDetails(Request $request, $id)
+    // {
+    //     $validated = $request->validate([
+    //         'names_of_buddies' => 'required|string|max:255',
+    //         'boat_number' => 'nullable|string|max:255',
+    //         'required_equipment' => 'nullable|string|max:255',
+    //     ]);
+
+    //     $bookingDetail = BookingDetail::create([
+    //         'booking_id' => $id,
+    //         'names_of_buddies' => $request->names_of_buddies,
+    //         'boat_number' => $request->boat_number,
+    //         'required_equipment' => $request->required_equipment,
+    //     ]);
+
+    //     return redirect()->route('bookings.index')->with('success', 'Booking details saved successfully');
+    // }
+
+    public function saveBookingDetails(Request $request)
     {
-        $validated = $request->validate([
-            'names_of_buddies' => 'required|string|max:255',
-            'boat_number' => 'nullable|string|max:255',
-            'required_equipment' => 'nullable|string|max:255',
-        ]);
+        dd('Reached controller method', $request->all());
 
-        $bookingDetail = BookingDetail::create([
-            'booking_id' => $id,
-            'names_of_buddies' => $request->names_of_buddies,
-            'boat_number' => $request->boat_number,
-            'required_equipment' => $request->required_equipment,
-        ]);
+        try {
+            // Validate incoming request data
+            $validated = $request->validate([
+                'instructor' => 'required|exists:users,id',
+                'number_of_buddies' => 'required|integer|min:1',
+                'boat_number' => 'nullable|string|max:255',
+                'required_equipment' => 'nullable|string|max:255',
+                'booking_id' => 'required|exists:bookings,id',
+            ]);
 
-        return redirect()->route('bookings.index')->with('success', 'Booking details saved successfully');
+            \Log::info('Validation passed', ['validated' => $validated]);
+
+            // Create new BookingDetail instance
+            $bookingDetail = new BookingDetail([
+                'booking_id' => $request->booking_id,
+                'instructor_id' => $request->instructor,
+                'number_of_buddies' => $request->number_of_buddies,
+                'boat_number' => $request->boat_number,
+                'required_equipment' => $request->required_equipment,
+                'instructor_status' => 'Pending',
+            ]);
+
+            \Log::info('Attempting to save booking detail', ['data' => $bookingDetail->toArray()]);
+
+            if ($bookingDetail->save()) {
+                \Log::info('Booking detail saved successfully', ['id' => $bookingDetail->id]);
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Booking details saved successfully!',
+                    'data' => $bookingDetail
+                ]);
+            }
+
+            \Log::error('Failed to save booking detail (save returned false)');
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to save booking details'
+            ], 500);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            \Log::error('Validation failed', ['errors' => $e->errors()]);
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation failed',
+                'errors' => $e->errors()
+            ], 422);
+            
+        } catch (\Exception $e) {
+            \Log::error('Exception occurred', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred: ' . $e->getMessage()
+            ], 500);
+        }
     }
+
 }
 
