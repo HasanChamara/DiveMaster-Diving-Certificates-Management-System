@@ -98,6 +98,11 @@ Route::get('/edit-dive-log/{id}/{diver_id}', [DiveLogController::class, 'edit'])
 Route::put('/dive-log/update/{id}/{diver_id}', [DiveLogController::class, 'update'])->name('diveLog.update');
 
 
+Route::get('/instructor-bookings', [BookingController::class, 'instructor_index']);
+// Route to update booking status
+Route::post('/update-booking-status', [BookingController::class, 'updateBookingStatus']);
+
+
 Route::resource(name: 'certificates', controller:CertificateController::class)->middleware(['auth']);
 Route::resource(name: 'inventories', controller:InventoryController::class)->middleware(['auth']);
 // Route::resource(name: 'assignments', controller:AssignmentController::class)->middleware(['auth']);
