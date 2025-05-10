@@ -35,6 +35,7 @@
         .form-section {
             margin-bottom: 30px;
         }
+        
 
         .form-section h4 {
             color: #0c5460;
@@ -208,12 +209,9 @@
                                 <div class="form-group">
                                     <label for="visibility">Visibility:</label>
                                     <select id="visibility" name="visibility" class="form-control">
-                                        <option value="Good" {{ old('visibility') == 'Good' ? 'selected' : '' }}>Good
-                                        </option>
-                                        <option value="Fair" {{ old('visibility') == 'Fair' ? 'selected' : '' }}>Fair
-                                        </option>
-                                        <option value="Poor" {{ old('visibility') == 'Poor' ? 'selected' : '' }}>Poor
-                                        </option>
+                                        <option value="Good" {{ old('visibility') == 'Good' ? 'selected' : '' }}>Good</option>
+                                        <option value="Fair" {{ old('visibility') == 'Fair' ? 'selected' : '' }}>Fair</option>
+                                        <option value="Poor" {{ old('visibility') == 'Poor' ? 'selected' : '' }}>Poor</option>
                                     </select>
                                 </div>
 
@@ -256,12 +254,10 @@
                                         <label for="duration_{{ $diver->id }}">Duration (minutes):</label>
                                         <input type="number" id="duration_{{ $diver->id }}"
                                             name="divers[{{ $index }}][duration]"
-                                            value="{{ old('divers.' . $index . '.duration') }}" class="form-control"
-                                            required>
+                                            value="{{ old('divers.' . $index . '.duration') }}" class="form-control" required>
                                     </div>
-
-
                                 </div>
+
                                 <div class="form-row">
                                     <div class="form-group">
                                         <label for="dive_type_{{ $diver->id }}">Dive Type:</label>
@@ -287,8 +283,6 @@
                                 </div>
 
                                 <div class="form-row">
-
-
                                     <div class="form-group" style="flex: 0 0 100%; max-width: 100%;">
                                         <label for="notes_{{ $diver->id }}">Additional Notes:</label>
                                         <textarea id="notes_{{ $diver->id }}" name="divers[{{ $index }}][notes]"
@@ -303,6 +297,7 @@
                         </div>
                     </form>
                 </div>
+
             </div>
 
             <div class="trp-right-col-bottom">
