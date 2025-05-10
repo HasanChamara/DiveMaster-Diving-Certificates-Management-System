@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Booking;
 use App\Models\BookingDetail;
 use App\Models\Diver;
+use App\Models\User; // Import the User model
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-
 
 class BookingController extends Controller
 {
@@ -75,8 +75,9 @@ class BookingController extends Controller
 
     public function index()
     {
-        $bookings = Booking::all(); // Retrieve all bookings from the database
-        return view('booking.index', compact('bookings')); // Pass the bookings to the view
+        $bookings = Booking::all(); // Retrieve all bookings
+        $instructors = User::where('role', 'Instructor')->get(); // Retrieve users with the role of "Instructor"
+        return view('booking.index', compact('bookings', 'instructors'));
     }
 
     // Update the status and instructor
@@ -122,6 +123,5 @@ class BookingController extends Controller
 
         return redirect()->route('bookings.index')->with('success', 'Booking details saved successfully');
     }
-
 }
 

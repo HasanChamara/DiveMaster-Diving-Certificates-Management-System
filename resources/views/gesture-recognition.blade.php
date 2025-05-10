@@ -186,7 +186,7 @@
                             <div class="face-scan-card white-bg">
                                 <div class="right-card-content">
                                     <h2 class="biometric-title">Dive Notes</h2>
-                                    <p class="biometric-subtitle">Record your observations about hand signals during the dive session</p>
+                                    <p style="margin-bottom: 16px;" class="biometric-subtitle mb-3">Record your observations about hand signals during the dive session</p>
                                     
                                     <!-- Notepad Container -->
                                     <div id="notepadContainer" class="notepad-container">

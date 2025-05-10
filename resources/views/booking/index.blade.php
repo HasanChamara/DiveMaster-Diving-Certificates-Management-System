@@ -109,14 +109,14 @@
         <aside class="trp-left-col trp-sidebar">
             <img class="mb-4" src="{{ asset('imgs/dive-master-logo-white.png') }}" width="120" alt="" />
             <ul class="trp-sidebar-links">
-            <li class="active">
+            <li >
                <a href="/dashboard">
                   <span><img src="{{ asset('imgs/dm-dashboard.png') }}" width="24" height="24" alt="" /></span>
                   Dashboard
                </a>
             </li>
             @if(Auth::user()->role === 'Admin')
-            <li>
+            <li class="active">
                <a href="/bookings">
                  <span><img src="{{ asset('imgs/dm-bookings.png') }}" width="24" height="24" alt="" /></span>
                  Booking Requests
@@ -169,7 +169,7 @@
             </li>
          @endif
             @if(Auth::user()->role === 'Admin')
-            <li class="active">
+            <li>
                <a href="/admin/users">
                  <span><img src="{{ asset('imgs/users.png') }}" width="24" height="24" alt="" /></span>
                  Users
@@ -276,8 +276,15 @@
                                                 </select>
                                         </td>
                                         <td>
-                                            <input type="text" name="instructor" value="{{ $booking->instructor }}"
-                                                placeholder="Enter instructor name" class="status-select">
+                                        <select name="instructor" class="status-select" required>
+                                            <option value="">Select Instructor</option>
+                                            @foreach($instructors as $instructor)
+                                                <option value="{{ $instructor->name }}" 
+                                                    {{ $booking->instructor == $instructor->name ? 'selected' : '' }}>
+                                                    {{ $instructor->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                         </td>
                                         <td>
                                             <a href="mailto:{{ $booking->email }}">{{ $booking->email }}</a><br>
@@ -319,8 +326,8 @@
                             @csrf
                             <input type="hidden" name="booking_id" id="modalBookingId">
                             <div>
-                                <label for="names_of_buddies">Names of Buddies:</label>
-                                <input type="text" name="names_of_buddies" required>
+                                <label for="number_of_buddies">Number of Buddies:</label>
+                                <input type="text" name="number_of_buddies" required>
                             </div>
                             <div>
                                 <label for="boat_number">Boat Number:</label>
