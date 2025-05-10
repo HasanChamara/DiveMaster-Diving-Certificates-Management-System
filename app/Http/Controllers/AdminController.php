@@ -29,8 +29,7 @@ class AdminController extends Controller
 
     public function deleteUser($id) {
         $user = User::findOrFail($id);
-    
-        // Prevent admin from deleting themselves
+
         if (auth()->user()->id == $user->id) {
             return redirect()->route('admin.users')->with('error', 'You cannot delete your own account.');
         }
