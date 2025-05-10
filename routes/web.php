@@ -76,6 +76,16 @@ Route::get('/booking/{booking_id}/dive-log/create', [DiveLogController::class, '
 // Route to handle dive log form submission
 Route::post('/dive-log', [DiveLogController::class, 'store'])->name('diveLog.store');
 
+// Manage Dive Logs Route
+Route::get('/manage-dive-logs', [DiveLogController::class, 'manage'])->name('manageDiveLogs');
+
+// Edit Dive Log Route
+Route::get('/edit-dive-log/{id}/{diver_id}', [DiveLogController::class, 'edit'])->name('editDiveLog');
+
+Route::put('/dive-log/update/{id}/{diver_id}', [DiveLogController::class, 'update'])->name('diveLog.update');
+
+
+
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

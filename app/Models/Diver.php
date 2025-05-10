@@ -18,4 +18,6 @@ class Diver extends Model
     {
         return $this->belongsTo(Booking::class);
     }
+
+    
 }

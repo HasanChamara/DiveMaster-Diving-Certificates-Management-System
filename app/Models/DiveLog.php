@@ -23,9 +23,8 @@ class DiveLog extends Model
         'notes',
     ];
 
-    // Relationship: A DiveLog belongs to a Diver
     public function diver()
     {
-        return $this->belongsTo(Diver::class);  // Make sure this relationship is correct
+        return $this->belongsTo(Diver::class, 'diver_id');
     }
 }
