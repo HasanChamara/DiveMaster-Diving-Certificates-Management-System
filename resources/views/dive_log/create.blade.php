@@ -147,27 +147,69 @@
                         Dashboard
                     </a>
                 </li>
-                <li class="active">
-                    <a href="/bookings">
-                        <span><img src="{{ asset('imgs/dm-bookings.png') }}" width="24" height="24" alt="" /></span>
-                        Booking Requests
-                    </a>
-                </li>
+                @if(Auth::user()->role === 'Admin')
+                    <li>
+                        <a href="/bookings">
+                            <span><img src="{{ asset('imgs/dm-bookings.png') }}" width="24" height="24" alt="" /></span>
+                            Booking Requests
+                        </a>
+                    </li>
+                @endif
 
+                @if(Auth::user()->role === 'Instructor')
+                    <li>
+                        <a href="#">
+                            <span><img src="{{ asset('imgs/dm-bookings.png') }}" width="24" height="24" alt="" /></span>
+                            Dive Schedule
+                        </a>
+                    </li>
+                @endif
+
+                @if(in_array(Auth::user()->role, ['Admin', 'Instructor']))
+                    <li>
+                        <a href="#">
+                            <span><img src="{{ asset('imgs/dm-office.png') }}" width="24" height="24" alt="" /></span>
+                            Certifications
+                        </a>
+                    </li>
+                @endif
+
+                @if(in_array(Auth::user()->role, ['Admin', 'Instructor']))
+
+                    <li>
+                        <a href="#">
+                            <span><img src="{{ asset('imgs/exam.svg') }}" width="24" height="24" alt="" /></span>
+                            Assignments
+                        </a>
+                    </li>
+                @endif
+                @if(in_array(Auth::user()->role, ['Admin', 'Instructor']))
+                    <li class="active">
+
+                        <a href="/manage-dive-logs">
+                            <span><img src="{{ asset('imgs/dive-logs.png') }}" width="24" height="24" alt="" /></span>
+                            Dive Logs
+                        </a>
+                    </li>
+                @endif
+                @if(Auth::user()->role === 'Admin')
+                    <li>
+                        <a href="#">
+                            <span><img src="{{ asset('imgs/dm-equipments.png') }}" width="24" height="24" alt="" /></span>
+                            Equipments Management
+                        </a>
+                    </li>
+                @endif
+                @if(Auth::user()->role === 'Admin')
+                    <li>
+                        <a href="/admin/users">
+                            <span><img src="{{ asset('imgs/users.png') }}" width="24" height="24" alt="" /></span>
+                            Users
+                        </a>
+                    </li>
+                @endif
                 <li>
-                    <a href="#">
-                        <span><img src="{{ asset('imgs/dm-office.png') }}" width="24" height="24" alt="" /></span>
-                        Certification Authorities
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span><img src="{{ asset('imgs/dm-equipments.png') }}" width="24" height="24" alt="" /></span>
-                        Equipments Management
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
+                    <a href="{{ route('profile.edit') }}">
                         <span><img src="{{ asset('imgs/dm-cogwheel.png') }}" width="24" height="24" alt="" /></span>
                         Settings
                     </a>
@@ -176,8 +218,8 @@
 
             <div class="trp-sidebar-bottom">
                 <div class="trp-sidebar-bottom__info">
-                    <img class="trp-sidebar-bottom__info__user" src="{{ asset('imgs/Avatar.svg') }}" alt="" />
-                    <div>
+                <img class="trp-sidebar-bottom__info__user" src="{{ asset(path: 'imgs/diver.png') }}" style="width: 40px;" width="40" alt="" />
+                <div>
                         <h5>Dulanjaya</h5>
                         <h6>dulanjaya@divemaster.com</h6>
                     </div>

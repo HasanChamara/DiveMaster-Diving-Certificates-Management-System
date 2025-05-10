@@ -92,6 +92,8 @@ Route::resource(name: 'certificates', controller:CertificateController::class)->
 Route::resource(name: 'inventories', controller:InventoryController::class)->middleware(['auth']);
 Route::resource(name: 'assignments', controller:AssignmentController::class)->middleware(['auth']);
 
+// Route::get('/assignments', [AssignmentController::class, 'index'])->name('assignments.index');
+
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
