@@ -51,15 +51,22 @@ Route::get('/dashboard', [AuthController::class, 'dashboard'])->middleware('auth
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 //Admin Controller
-Route::get('/admin/users', [AdminController::class, 'index'])->middleware('auth')->name('admin.users');
-Route::post('/admin/users/update-role/{id}', [AdminController::class, 'updateRole'])->middleware('auth')->name('admin.updateRole');
-Route::delete('/admin/users/delete/{id}', [AdminController::class, 'deleteUser'])->name('admin.deleteUser');
+// Route::get('/admin/users', [AdminController::class, 'index'])->middleware('auth')->name('admin.users');
+// Route::post('/admin/users/update-role/{id}', [AdminController::class, 'updateRole'])->middleware('auth')->name('admin.updateRole');
+// Route::delete('/admin/users/delete/{id}', [AdminController::class, 'deleteUser'])->name('admin.deleteUser');
 
 //Profile Routes
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     // Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+});
+
+//Admin only Routes
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/users', [AdminController::class, 'index'])->middleware('auth')->name('admin.users');
+    Route::delete('/admin/users/delete/{id}', [AdminController::class, 'deleteUser'])->name('admin.deleteUser');
+    Route::post('/admin/users/update-role/{id}', [AdminController::class, 'updateRole'])->middleware('auth')->name('admin.updateRole');
 });
 
 // Dive Logs
