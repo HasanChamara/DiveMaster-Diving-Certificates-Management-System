@@ -157,9 +157,7 @@
                         <table class="table trp-table" id="trDataTableBookings">
                             <thead>
                                 <tr>
-                                    <th>Diver's Name</th>
-                                    <th>Diver's NIC</th>
-                                   
+                                    <th>Diver's Name</th>                                   
                                     <th>Dive Date</th>
                                     <th style="text-align: center;">Depth</th>
                                     <th>Duration</th>
@@ -176,7 +174,6 @@
                                 @foreach($diveLogs as $log)
                                     <tr>
                                         <td>{{ $log->diver->name }}</td>
-                                        <td>NIC</td>
                                         <td>Date</td>
                                         <td>{{ $log->depth }}m</td>
                                         <td>{{ $log->duration }} minutes</td>
