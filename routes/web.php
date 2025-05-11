@@ -11,6 +11,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\FileUploadController;
+use App\Http\Controllers\MediaController;
+
 
 
 // Route::get('/', function () {
@@ -101,6 +104,12 @@ Route::put('/dive-log/update/{id}/{diver_id}', [DiveLogController::class, 'updat
 Route::get('/instructor-bookings', [BookingController::class, 'instructor_index']);
 // Route to update booking status
 Route::post('/update-booking-status/{id}', [BookingController::class, 'updateBookingStatus']);
+
+Route::get('/upload', [FileUploadController::class, 'showUploadForm'])->name('upload.form');
+Route::post('/upload', [FileUploadController::class, 'uploadFiles'])->name('upload.files');
+
+Route::get('/media/blog', [MediaController::class, 'index'])->name('media.blog');
+
 
 
 Route::resource(name: 'certificates', controller:CertificateController::class)->middleware(['auth']);
