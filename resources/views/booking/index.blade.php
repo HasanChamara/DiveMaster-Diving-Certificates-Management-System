@@ -160,11 +160,19 @@
                </a>
             </li>
          @endif
-            @if(Auth::user()->role === 'Admin')
+        @if(Auth::user()->role === 'Admin')
             <li>
                <a href="/inventories" target="_blank">
                  <span><img src="{{ asset('imgs/dm-equipments.png') }}" width="24" height="24" alt="" /></span>
                  Equipments Management
+               </a>
+            </li>
+         @endif
+         @if(Auth::user()->role === 'Research Diver')
+            <li>
+               <a href="/upload" target="_blank">
+                 <span><img src="{{ asset('imgs/dm-equipments.png') }}" width="24" height="24" alt="" /></span>
+                 Upload Marine Logs
                </a>
             </li>
          @endif
@@ -247,7 +255,7 @@
                                     <th style="text-align: center;">Location</th>
                                     <th style="text-align: center;" colspan="2">People</th>
                                     <th>Status</th>
-                                    <!-- <th>Instructor's Status</th> -->
+                                    <th>Instructor's Status</th>
                                     <th>Contact</th>
                                     <!-- <th>Actions</th> -->
                                 </tr>
@@ -272,9 +280,9 @@
                                                 <option value="Accepted" {{ $booking->status == 'Accepted' ? 'selected' : '' }}>Accepted</option>
                                             </select>
                                         </td>
-                                        <!-- <td>
+                                        <td>
                                             <input type="text" name="instructor_status" value="{{ $booking->instructor_status ?? 'Pending' }}" required>
-                                        </td> -->
+                                        </td>
                                         <td>
                                             <a href="mailto:{{ $booking->email }}">{{ $booking->email }}</a><br>
                                             {{ $booking->contact_number ?? '+94XXXXXXXX' }}
