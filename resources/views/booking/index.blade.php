@@ -255,7 +255,7 @@
                                     <th style="text-align: center;">Location</th>
                                     <th style="text-align: center;" colspan="2">People</th>
                                     <th>Status</th>
-                                    <th>Instructor's Status</th>
+                                    <!-- <th>Instructor's Status</th> -->
                                     <th>Contact</th>
                                     <!-- <th>Actions</th> -->
                                 </tr>
@@ -281,7 +281,7 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <input type="text" name="instructor_status" value="{{ $booking->instructor_status ?? 'Pending' }}" required>
+                                            <!-- <input type="text" id="instructor-status-{{ $booking->id }}" value="{{ $bookingDetail->instructor_status ?? 'Pending' }}" readonly> -->
                                         </td>
                                         <td>
                                             <a href="mailto:{{ $booking->email }}">{{ $booking->email }}</a><br>

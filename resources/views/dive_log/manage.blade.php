@@ -32,8 +32,8 @@
                         Dashboard
                     </a>
                 </li>
-                @if(Auth::user()->role === 'Admin')
-                    <li>
+                @if(in_array(Auth::user()->role, ['Admin', 'Instructor']))
+                    <li >
                         <a href="/bookings">
                             <span><img src="{{ asset('imgs/dm-bookings.png') }}" width="24" height="24" alt="" /></span>
                             Booking Requests
@@ -41,11 +41,11 @@
                     </li>
                 @endif
 
-                @if(Auth::user()->role === 'Instructor')
-                    <li>
-                        <a href="#">
-                            <span><img src="{{ asset('imgs/dm-bookings.png') }}" width="24" height="24" alt="" /></span>
-                            Dive Schedule
+                @if(in_array(Auth::user()->role, ['Instructor']))
+                    <li >
+                        <a href="/instructor-bookings">
+                            <span><img src="{{ asset('imgs/dive-logs.png') }}" width="24" height="24" alt="" /></span>
+                            Assigned Bookings
                         </a>
                     </li>
                 @endif
@@ -70,13 +70,13 @@
                 @endif
                 @if(in_array(Auth::user()->role, ['Admin', 'Instructor']))
                     <li class="active">
-
                         <a href="/manage-dive-logs">
                             <span><img src="{{ asset('imgs/dive-logs.png') }}" width="24" height="24" alt="" /></span>
                             Dive Logs
                         </a>
                     </li>
                 @endif
+                
                 @if(Auth::user()->role === 'Admin')
                     <li>
                         <a href="#">

@@ -27,7 +27,7 @@
       <aside class="trp-left-col trp-sidebar">
          <img class="mb-4" src="{{ asset('imgs/dive-master-logo-white.png') }}" width="120" alt="" />
          <ul class="trp-sidebar-links">
-                <li>
+                <li class="active">
                     <a href="/dashboard">
                         <span><img src="{{ asset('imgs/dm-dashboard.png') }}" width="24" height="24" alt="" /></span>
                         Dashboard
@@ -43,7 +43,7 @@
                 @endif
 
                 @if(in_array(Auth::user()->role, ['Instructor']))
-                    <li class="active">
+                    <li>
                         <a href="/instructor-bookings">
                             <span><img src="{{ asset('imgs/dive-logs.png') }}" width="24" height="24" alt="" /></span>
                             Assigned Bookings
