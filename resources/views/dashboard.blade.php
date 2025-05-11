@@ -51,7 +51,7 @@
             </li>
          @endif
 
-            @if(in_array(Auth::user()->role, ['Admin', 'Instructor']))
+         @if(in_array(Auth::user()->role, ['Admin', 'Instructor']))
             <li>
                <a href="#">
                  <span><img src="{{ asset('imgs/dm-office.png') }}" width="24" height="24" alt="" /></span>
@@ -111,7 +111,8 @@
                </div> -->
                <a href="{{ route('profile.edit') }}" style="text-decoration: none; color: inherit;">
                   <div style="display: flex; align-items: center;">
-                     <img class="trp-sidebar-bottom__info__user" src="{{ asset(path: 'imgs/diver.png') }}" style="width: 40px;" width="40" alt="" />
+                     <img class="trp-sidebar-bottom__info__user" src="{{ asset(path: 'imgs/diver.png') }}"
+                        style="width: 40px;" width="40" alt="" />
                      <div style="margin-left: 10px;">
                         <h5>{{ auth()->user()->name }}</h5>
                         <h6>{{ auth()->user()->email }}</h6>

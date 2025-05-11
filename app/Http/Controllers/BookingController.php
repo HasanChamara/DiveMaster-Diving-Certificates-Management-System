@@ -8,6 +8,7 @@ use App\Models\BookingDetail;
 use App\Models\Diver;
 use App\Models\User; // Import the User model
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class BookingController extends Controller
@@ -133,5 +134,40 @@ class BookingController extends Controller
         return response()->json(['success' => true, 'message' => 'Booking details saved successfully!']);
     }
 
-}
+    public function instructor_index()
+    {
+        // Get the instructor's ID from the authenticated user
+        $instructorId = Auth::user()->id;
 
+        // Retrieve the bookings that belong to the current instructor
+        $bookings = DB::table('bookings')
+            ->join('booking_details', 'bookings.id', '=', 'booking_details.booking_id')
+            ->where('booking_details.instructor_id', '=', $instructorId)
+            ->select('bookings.*', 'booking_details.*') // Select relevant columns
+            ->get();
+
+        // Pass the bookings data to the view
+        return view('instructor-dashboard', compact('bookings'));
+    }
+
+    // Method to update booking status
+    public function updateBookingStatus(Request $request, $id)
+    {
+        $request->validate([
+            'instructor_status' => 'required|in:Pending,Accepted,Rejected',
+        ]);
+
+        // Find the booking detail by ID
+        $bookingDetail = BookingDetail::find($id);
+
+        if ($bookingDetail) {
+            $bookingDetail->instructor_status = $request->instructor_status;
+            $bookingDetail->save();
+
+            return redirect()->back()->with('success', 'Status updated successfully');
+        }
+
+        return redirect()->back()->with('error', 'Booking not found');
+    }
+
+}

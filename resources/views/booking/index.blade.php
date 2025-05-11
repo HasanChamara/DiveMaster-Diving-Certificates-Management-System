@@ -135,7 +135,7 @@
 
             @if(in_array(Auth::user()->role, ['Admin', 'Instructor']))
             <li>
-               <a href="#">
+               <a href="/certificates" target="_blank">
                  <span><img src="{{ asset('imgs/dm-office.png') }}" width="24" height="24" alt="" /></span>
                  Certifications
                </a>
@@ -145,15 +145,15 @@
             @if(in_array(Auth::user()->role, ['Admin', 'Instructor']))
 
             <li>
-               <a href="#">
+               <a href="/assignments" target="_blank">
                  <span><img src="{{ asset('imgs/exam.svg') }}" width="24" height="24" alt="" /></span>
                  Assignments
                </a>
             </li>
          @endif
-
+        
+            @if(Auth::user()->role === 'Instructor')
             <li>
-               @if(in_array(Auth::user()->role, ['Admin', 'Instructor']))
                <a href="/manage-dive-logs">
                  <span><img src="{{ asset('imgs/dive-logs.png') }}" width="24" height="24" alt="" /></span>
                  Dive Logs
@@ -162,14 +162,14 @@
          @endif
             @if(Auth::user()->role === 'Admin')
             <li>
-               <a href="#">
+               <a href="/inventories" target="_blank">
                  <span><img src="{{ asset('imgs/dm-equipments.png') }}" width="24" height="24" alt="" /></span>
                  Equipments Management
                </a>
             </li>
          @endif
             @if(Auth::user()->role === 'Admin')
-            <li ">
+            <li>
                <a href="/admin/users">
                  <span><img src="{{ asset('imgs/users.png') }}" width="24" height="24" alt="" /></span>
                  Users
@@ -247,9 +247,9 @@
                                     <th style="text-align: center;">Location</th>
                                     <th style="text-align: center;" colspan="2">People</th>
                                     <th>Status</th>
-                                    <th>Instructor's Status</th>
+                                    <!-- <th>Instructor's Status</th> -->
                                     <th>Contact</th>
-                                    <th>Actions</th>
+                                    <!-- <th>Actions</th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -272,18 +272,18 @@
                                                 <option value="Accepted" {{ $booking->status == 'Accepted' ? 'selected' : '' }}>Accepted</option>
                                             </select>
                                         </td>
-                                        <td>
-                                            <input type="text" name="instructor_status" value="Pending" required>
-                                        </td>
+                                        <!-- <td>
+                                            <input type="text" name="instructor_status" value="{{ $booking->instructor_status ?? 'Pending' }}" required>
+                                        </td> -->
                                         <td>
                                             <a href="mailto:{{ $booking->email }}">{{ $booking->email }}</a><br>
                                             {{ $booking->contact_number ?? '+94XXXXXXXX' }}
                                         </td>
-                                        <td>
+                                        <!-- <td>
                                             <button type="submit" class="btn"><img src="{{ asset('imgs/edit-icon.svg') }}"
                                                     alt="Update" /></button>
                                             </form>
-                                        </td>
+                                        </td> -->
                                     </tr>
                                 @endforeach
                             </tbody>
