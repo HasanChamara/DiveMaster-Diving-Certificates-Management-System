@@ -32,7 +32,7 @@
                         Dashboard
                     </a>
                 </li>
-                @if(Auth::user()->role === 'Admin')
+                @if(in_array(Auth::user()->role, ['Admin', 'Instructor']))
                     <li>
                         <a href="/bookings">
                             <span><img src="{{ asset('imgs/dm-bookings.png') }}" width="24" height="24" alt="" /></span>
@@ -52,7 +52,7 @@
 
                 @if(in_array(Auth::user()->role, ['Admin', 'Instructor']))
                     <li>
-                        <a href="#">
+                        <a href="/certificates" target="_blank">
                             <span><img src="{{ asset('imgs/dm-office.png') }}" width="24" height="24" alt="" /></span>
                             Certifications
                         </a>
@@ -62,15 +62,15 @@
                 @if(in_array(Auth::user()->role, ['Admin', 'Instructor']))
 
                     <li>
-                        <a href="#">
+                        <a href="/assignments" target="_blank">
                             <span><img src="{{ asset('imgs/exam.svg') }}" width="24" height="24" alt="" /></span>
                             Assignments
                         </a>
                     </li>
                 @endif
-                @if(in_array(Auth::user()->role, ['Admin', 'Instructor']))
-                    <li class="active">
 
+                @if(Auth::user()->role === 'Instructor')
+                    <li>
                         <a href="/manage-dive-logs">
                             <span><img src="{{ asset('imgs/dive-logs.png') }}" width="24" height="24" alt="" /></span>
                             Dive Logs
@@ -79,9 +79,17 @@
                 @endif
                 @if(Auth::user()->role === 'Admin')
                     <li>
-                        <a href="#">
+                        <a href="/inventories" target="_blank">
                             <span><img src="{{ asset('imgs/dm-equipments.png') }}" width="24" height="24" alt="" /></span>
                             Equipments Management
+                        </a>
+                    </li>
+                @endif
+                @if(Auth::user()->role === 'Research Diver')
+                    <li class="active">
+                        <a href="/upload" target="_blank">
+                            <span><img src="{{ asset('imgs/dm-equipments.png') }}" width="24" height="24" alt="" /></span>
+                            Upload Marine Logs
                         </a>
                     </li>
                 @endif

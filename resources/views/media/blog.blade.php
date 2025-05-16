@@ -6,6 +6,7 @@
     <title>Marine Media Blog</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <style>
         .media-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
